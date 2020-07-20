@@ -10,7 +10,8 @@
         "README.md",
         "MCP23017.ts",
         "OLED.ts",
-        "1602_LCD.ts"
+        "1602_LCD.ts",
+        "_locales/hu/OLED-strings.json"
     ],
     "testFiles": [
         "test.ts"
