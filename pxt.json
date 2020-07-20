@@ -9,7 +9,8 @@
     "files": [
         "README.md",
         "MCP23017.ts",
-        "OLED.ts"
+        "OLED.ts",
+        "1602_LCD.ts"
     ],
     "testFiles": [
         "test.ts"
