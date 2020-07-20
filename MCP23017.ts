@@ -6,6 +6,11 @@
 
  */
 
+/*
+    PORT_A - BEMENETEK
+    PORT_B - KIMENETEK
+*/
+
 let outputABuffer = 0;
 let outputBBuffer = 0;
 
@@ -15,6 +20,7 @@ enum SET_PORT {
     //% block=PORT_B
     B = 256
 }
+
 
 enum REG_PIO {
     //% block=PORT_A
@@ -41,87 +47,178 @@ enum ADDRESS {                     // address for MCP23017 (configurable by tyin
     A27 = 0x27                // 
 }
 
+
+const enum REG_MCP {
+    //% A Port bitképe (Bemenetek)
+    PORT_A_BITS = 0x12,
+    //% B Port bitképe (Kimenetek)
+    PORT_B_BITS = 0x13,
+
+    //% A Port ki vagy bemeneti irányt meghatározó regiszter
+    PORT_A_DIRECTION = 0x00, //Alapértelmezetten bemenetek (1111 1111)
+    //% A Port ki vagy bemeneti irányt meghatározó regiszter
+    PORT_B_DIRECTION = 0x01,
+
+    //% A Port polaritása
+    PORT_A_POL = 0x02,
+    //% B Port polaritása
+    PORT_B_POL = 0x03,
+
+    //% A Port bemeneti felhúzó ellenállás
+    PORT_A_PULLUP = 0x0C,
+    //% B Port bemeneti felhúzó ellenállás
+    PORT_B_PULLUP = 0x0D
+}
 /**
  * Blocks
  */
-"//% weight=100 color=#0fbc12 icon="
+//% weight=100 color=#0fbc12 icon=
 namespace PlcBit {
+
+
+    /**
+     * Egy regiszter írása
+     * adress: A PLC:BIT címe
+     * reg: Regiszter
+     * value: A regiszterbe írandó decimális érték
+     */
+    //% blockId=Regiszter írása 
+    //%advanced=true 
+    //%block="A %adress PLC:BIT %reg regiszterének írása %value értékkel"
+    export function writeRegister(adress: ADDRESS, reg: REG_MCP, value: number) {
+        pins.i2cWriteNumber(adress, reg * 256 + value, NumberFormat.UInt16BE)
+    }
+
+    /**
+     * Egy regiszter olvasása
+     * adress: A PLC:BIT címe
+     * reg: Regiszter
+     */
+    //%blockId=Regiszter olvasása 
+    //%advanced=true 
+    //%block="A %adress PLC:BIT %reg regiszterének kiolvasása"
+    export function readRegister(adress: ADDRESS, reg: REG_MCP): number {
+        pins.i2cWriteNumber(adress, reg, NumberFormat.Int8LE);
+        return pins.i2cReadNumber(adress, NumberFormat.Int8LE)
+    }
+
+    /**
+     * A PLC:BIT ki és bemeneteinek inicializálása
+     */
+    //% blockId="initPlcBit"
+    //% block="A %adress PLC:BIT inicializálása"
+    //% weight=80
+    //% group="Induláshoz"
+    export function initPlcBit(adress: ADDRESS): void {
+        
+        PlcBit.writeRegister(adress, REG_MCP.PORT_A_DIRECTION, 0xff) //Inputs
+        PlcBit.writeRegister(adress, REG_MCP.PORT_B_DIRECTION, 0x00) // Outputs
+        
+        PlcBit.writeRegister(adress, REG_MCP.PORT_A_PULLUP, 0xff)
+        PlcBit.writeRegister(adress, REG_MCP.PORT_B_PULLUP, 0x00)
+
+        PlcBit.writeRegister(adress, REG_MCP.PORT_A_POL, 0xff) //A bemenetek alacsony aktívak!
+        clearAllOuputs
+    }
+
     /**
      * Minden kimenet törlése
-     * @param adress Address of MCP23017, pl.: 0x20
+     *adress Az eszköz címe, pl.: 0x20
      */
-    //% blockId="Összes kimenet törlése"
-    //% block="A(z) %adress című MCP23017 eszköz kimeneteinek alaphelyzetbe állítása"
+    //% blockId="A PLC:BIT kimeneteinek alaphelyzetbe állítása"
+    //% block="A(z) %adress PLC:BIT minden kimenete KI"
     //% weight=88
-    export function clearAllOuputsOn(adress: ADDRESS) {
-        pins.i2cWriteNumber(adress, OUTPUTS + 0, NumberFormat.UInt16BE)
+    //% group="Induláshoz"
+    export function clearAllOuputs(adress: ADDRESS) {
+        outputABuffer = 0
+        PlcBit.writeRegister(adress, REG_MCP.PORT_B_BITS, outputABuffer)
     }
 
     /**
      * Minden kimenet bekapcsolása
-     * @param adress Address of MCP23017, pl.: 0x20
+     * @param adress Az eszköz címe, pl.: 0x20
     */
-    //% blockId="Összes kimenet bekapcsolása"
-    //% block="A(z) %adress című MCP23017 eszköz kimeneteinek bekapcsolása"
+    //% blockId="A PLC:BIT kimeneteinek bekapcsolása"
+    //% block="A %adress PLC:BIT minden kimenete BE"
     //% weight=88
-    export function setAllOuputsOn(adress: ADDRESS) {
-        pins.i2cWriteNumber(adress, OUTPUTS + 0B11101111, NumberFormat.UInt16BE)
+    //% group="Induláshoz"
+    export function setAllOuputs(adress: ADDRESS) {
+        outputABuffer = 0xff
+        PlcBit.writeRegister(adress, REG_MCP.PORT_B_BITS , outputABuffer)
     }
 
 
-
-    //% block
-    export function setOutputA(bit: number) {
+    /**
+     * Egy kimenet bekapcsolása
+     * @param adress Az eszköz címe, pl.: 0x20
+     * @param bit A kimenet sorszáma
+    */
+    //% blockId="A PLC:BIT egy kimenetének bekapcsolása"
+    //% block="A %adress PLC:BIT %bit. kimenet BE"
+    //% bit.min=0 bit.max=7
+    //% weight=88
+    //% group="Működéshez"
+    export function setOutput(adress: ADDRESS, bit: number) {
         outputABuffer = outputABuffer | (1 << bit)
+        PlcBit.writeRegister(adress, REG_MCP.PORT_B_BITS, outputABuffer)
     }
 
-    //% block
-    export function clearOutputA(bit: number) {
+    /**
+     * Egy kimenet kikapcsolása
+     * @param adress Az eszköz címe, pl.: 0x20
+     * @param bit A kimenet sorszáma
+    */
+    //% blockId="Az eszköz egy kimenetének kikapcsolása"
+    //% block="A %adress PLC:BIT %bit. kimenet KI"
+    //% bit.min=0 bit.max=7
+    //% weight=88
+    //% group="Működéshez"
+    export function clearOutput(adress: ADDRESS, bit: number) {
         let tempMask = 1 << bit
         tempMask = tempMask ^ 0B11111111
         outputABuffer = outputABuffer & tempMask
+        PlcBit.writeRegister(adress, REG_MCP.PORT_B_BITS, outputABuffer)
     }
 
-    //% block
-    export function updateOutputAOn(adress: ADDRESS) {
-        writeNumberToPort(adress, 4608, outputABuffer)
-    }
-
-    //% block 
-    export function clearOutputABuffer() {
-        outputABuffer = 0
-    }
-
-    //% block 
-    export function fillOutputABuffer() {
-        outputABuffer = 0B11111111
-    }
-
-    //% block
-    export function setOutputB(bit: number) {
-        outputBBuffer = outputBBuffer | (1 << bit)
-    }
-
-    //% block
-    export function clearOutputB(bit: number) {
+    /**
+     * Egy kimenet váltása
+     * @param adress Az eszköz címe, pl.: 0x20
+     * @param bit A kimenet sorszáma
+    */
+    //% blockId="Az eszköz egy kimenetének váltása Ki->Be vagy Be->Ki"
+    //% block="A %adress PLC:BIT %bit. kimenet váltás"
+    //% bit.min=0 bit.max=7
+    //% weight=88
+    //% group="Működéshez"
+    export function toggleOutput(adress: ADDRESS, bit: number) {
         let tempMask = 1 << bit
-        tempMask = tempMask ^ 0B11111111
-        outputBBuffer = outputBBuffer & tempMask
+        //tempMask = tempMask ^ 0B11111111
+        outputABuffer = outputABuffer ^ tempMask
+        PlcBit.writeRegister(adress, REG_MCP.PORT_B_BITS, outputABuffer)
+    }
+
+    /**
+     * A kimenetek frissítése
+     * @param adress Az eszköz címe, pl.: 0x20
+    */
+    //% blockId="Az eszköz kimeneteinek frissítése"
+    //% block="A %adress PLC:BIT kimeneteinek frissítése"
+    //% bit.min=0 bit.max=7
+    //% weight=88
+    //% group="Működéshez"
+    export function updateOutput(adress: ADDRESS) {
+        PlcBit.writeRegister(adress, REG_MCP.PORT_B_BITS, outputABuffer)
+    }
+
+
+    export function readInput(adress : ADDRESS, input: number): boolean {
+        let port = PlcBit.readRegister(adress, REG_MCP.PORT_A_BITS)
+        return port & (1 << input);
     }
 
     //% block
-    export function updateOutputBOn(adress: ADDRESS) {
-        writeNumberToPort(adress, 4864, outputBBuffer)
-    }
-
-    //% block
-    export function clearOutputBBuffer() {
-        outputBBuffer = 0
-    }
-
-    //% block
-    export function fillOutputBBuffer() {
-        outputBBuffer = 0B11111111
+    export function ReadNotAnd(addr: ADDRESS, reg: REG_PIO, value: number): boolean {
+        return (!(readRegister(addr, reg) & value))
     }
 
     //% block
@@ -134,15 +231,6 @@ namespace PlcBit {
         pins.i2cWriteNumber(adress, port + 0x00, NumberFormat.UInt16BE)
     }
 
-    //% block
-    export function readRegister(addr: ADDRESS, reg: REG_PIO): number {
-        pins.i2cWriteNumber(addr, reg, NumberFormat.Int8LE);
-        return pins.i2cReadNumber(addr, NumberFormat.Int8LE)
-    }
 
-    //% block
-    export function ReadNotAnd(addr: ADDRESS, reg: REG_PIO, value: number): boolean {
-        return (!(readRegister(addr, reg) & value))
-    }
 
 }
