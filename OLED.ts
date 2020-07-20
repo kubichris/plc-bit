@@ -48,7 +48,7 @@ namespace OLED {
         buf[1] = cmd
         pins.i2cWriteBuffer(chipAdress, buf, false)
     }
-    //% block="clear OLED display"
+    //% block="OLED törlése"
     //% weight=3
     export function clear() {
         loadStarted = false
@@ -131,7 +131,7 @@ namespace OLED {
         loadPercent = num
     }
 
-    //% block="draw loading bar at $percent percent"
+    //% block="Állapotjelző $percent % értékkel"
     //% percent.min=0 percent.max=100
     //% weight=2
     export function drawLoading(percent: number) {
@@ -145,7 +145,7 @@ namespace OLED {
     }
 
 
-    //% block="show (without newline) string $str"
+    //% block="$str szöveg kiírása sortörés nélkül"
     //% weight=6
     export function writeString(str: string) {
         for (let i = 0; i < str.length(); i++) {
@@ -156,25 +156,25 @@ namespace OLED {
             charX += 6
         }
     }
-    //% block="show (without newline) number $n"
+    //% block="$n szám kiírása sortörés nélkül"
     //% weight=5
     export function writeNum(n: number) {
         let numString = n.toString()
         writeString(numString)
     }
-    //% block="show string $str"
+    //% block="$str szövegg kiírása"
     //% weight=8
     export function writeStringNewLine(str: string) {
         writeString(str)
         newLine()
     }
-    //% block="show number $n"
+    //% block="$n szám kiírása"
     //% weight=7
     export function writeNumNewLine(n: number) {
         writeNum(n)
         newLine()
     }
-    //% block="insert newline"
+    //% block="új sor"
     //% weight=4
     export function newLine() {
         charY++
@@ -249,7 +249,7 @@ namespace OLED {
         }
     }
 
-    //% block="draw line from:|x: $x0 y: $y0 to| x: $x1 y: $y1"
+    //% block="egyen rajzolása|x: $x0 y: $y0 pozíciótól| x: $x1 y: $y1 pozícióig"
     //% x0.defl=0
     //% y0.defl=0
     //% x1.defl=20
@@ -290,7 +290,7 @@ namespace OLED {
         drawShape(pixels)
     }
 
-    //% block="draw rectangle from:|x: $x0 y: $y0 to| x: $x1 y: $y1"
+    //% block="négyzet rajzolása|x: $x0 y: $y0 pozíciótól| x: $x1 y: $y1 pozícióig"
     //% x0.defl=0
     //% y0.defl=0
     //% x1.defl=20
@@ -302,7 +302,7 @@ namespace OLED {
         drawLine(x0, y0, x0, y1)
         drawLine(x1, y0, x1, y1)
     }
-    //% block="initialize OLED with width $width height $height"
+    //% block="OLED inicializálása $width szélességgel és $height magassággal"
     //% width.defl=128
     //% height.defl=64
     //% weight=9
