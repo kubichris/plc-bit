@@ -288,7 +288,7 @@ namespace PlcBit {
     //% group="Kimenetek"
     export function readOutput(adress : ADDRESS, output: BITS): boolean {
         let port = PlcBit.readRegister(adress, REG_MCP.PORT_B_BITS)
-        return ((port && (1 << output)) == 1)
+        return ((port & (1 << output)) == 1)
     }
 
 
@@ -316,7 +316,7 @@ namespace PlcBit {
     //% group="Bemenetek"
     export function readInput(adress : ADDRESS, input: BITS): boolean {
         let port = PlcBit.readRegister(adress, REG_MCP.PORT_A_BITS)
-        return ((port && (1 << input)) == 1)
+        return ((port & (1 << input)) == 1)
     }
 
 
