@@ -131,13 +131,13 @@ namespace PLCbit_IO {
     //% group="Induláshoz"
     export function initPlcBit(adress: ADDRESS): void {
         
-        PlcBit.writeRegister(adress, REG_MCP.PORT_A_DIRECTION, 0xff) // Inputs
-        PlcBit.writeRegister(adress, REG_MCP.PORT_B_DIRECTION, 0x00) // Outputs
+        writeRegister(adress, REG_MCP.PORT_A_DIRECTION, 0xff) // Inputs
+        writeRegister(adress, REG_MCP.PORT_B_DIRECTION, 0x00) // Outputs
         
-        PlcBit.writeRegister(adress, REG_MCP.PORT_A_PULLUP, 0xff)   // Inputs + Pullups
-        PlcBit.writeRegister(adress, REG_MCP.PORT_B_PULLUP, 0x00)   // Outputs 
+        writeRegister(adress, REG_MCP.PORT_A_PULLUP, 0xff)   // Inputs + Pullups
+        writeRegister(adress, REG_MCP.PORT_B_PULLUP, 0x00)   // Outputs 
 
-        PlcBit.writeRegister(adress, REG_MCP.PORT_A_POL, 0xff) //A bemenetek alacsony aktívak!
+        writeRegister(adress, REG_MCP.PORT_A_POL, 0xff) //A bemenetek alacsony aktívak!
         clearAllOuputs
     }
 
@@ -151,7 +151,7 @@ namespace PLCbit_IO {
     //% group="Induláshoz"
     export function clearAllOuputs(adress: ADDRESS) {
         outputABuffer = 0
-        PlcBit.writeRegister(adress, REG_MCP.PORT_B_BITS, outputABuffer)
+        writeRegister(adress, REG_MCP.PORT_B_BITS, outputABuffer)
     }
 
     /**
@@ -164,7 +164,7 @@ namespace PLCbit_IO {
     //% group="Induláshoz"
     export function setAllOuputs(adress: ADDRESS) {
         outputABuffer = 0xff
-        PlcBit.writeRegister(adress, REG_MCP.PORT_B_BITS , outputABuffer)
+        writeRegister(adress, REG_MCP.PORT_B_BITS , outputABuffer)
     }
 
 
@@ -180,7 +180,7 @@ namespace PLCbit_IO {
     //% group="Kimenetek"
     export function setOutput(adress: ADDRESS, bit: BITS) {
         outputABuffer = outputABuffer | (1 << bit)
-        PlcBit.writeRegister(adress, REG_MCP.PORT_B_BITS, outputABuffer)
+        writeRegister(adress, REG_MCP.PORT_B_BITS, outputABuffer)
     }
 
     /**
@@ -197,7 +197,7 @@ namespace PLCbit_IO {
         let tempMask = 1 << bit
         tempMask = tempMask ^ 0B11111111
         outputABuffer = outputABuffer & tempMask
-        PlcBit.writeRegister(adress, REG_MCP.PORT_B_BITS, outputABuffer)
+        writeRegister(adress, REG_MCP.PORT_B_BITS, outputABuffer)
     }
 
     /**
@@ -213,9 +213,9 @@ namespace PLCbit_IO {
     //% group="Kimenetek"
     export function writeOutput(adress: ADDRESS, bit: BITS, value: boolean) {
         if (value) 
-            PlcBit.setOutput(adress, bit)
+            setOutput(adress, bit)
         else
-            PlcBit.clearOutput(adress, bit)
+            clearOutput(adress, bit)
  }
 
     /**
@@ -232,7 +232,7 @@ namespace PLCbit_IO {
         let tempMask = 1 << bit
         //tempMask = tempMask ^ 0B11111111
         outputABuffer = outputABuffer ^ tempMask
-        PlcBit.writeRegister(adress, REG_MCP.PORT_B_BITS, outputABuffer)
+        writeRegister(adress, REG_MCP.PORT_B_BITS, outputABuffer)
     }
 
     /**
@@ -244,7 +244,7 @@ namespace PLCbit_IO {
     //% weight=88
     //% group="Kimenetek"
     export function updateOutput(adress: ADDRESS) {
-        PlcBit.writeRegister(adress, REG_MCP.PORT_B_BITS, outputABuffer)
+        writeRegister(adress, REG_MCP.PORT_B_BITS, outputABuffer)
     }
 
 
@@ -258,7 +258,7 @@ namespace PLCbit_IO {
     //% weight=88
     //% group="Kimenetek"
     export function readAllOutputs(adress : ADDRESS): number {
-        return PlcBit.readRegister(adress, REG_MCP.PORT_B_BITS)
+        return readRegister(adress, REG_MCP.PORT_B_BITS)
     }
 
     /**
@@ -272,7 +272,7 @@ namespace PLCbit_IO {
     //% weight=88
     //% group="Kimenetek"
     export function readOutput(adress : ADDRESS, output: BITS): boolean {
-        let port = PlcBit.readRegister(adress, REG_MCP.PORT_B_BITS)
+        let port = readRegister(adress, REG_MCP.PORT_B_BITS)
         return ((port & (1 << output)) == 1)
     }
 
@@ -286,7 +286,7 @@ namespace PLCbit_IO {
     //% weight=91
     //% group="Bemenetek"
     export function readInputAll(adress : ADDRESS): number {
-        return PlcBit.readRegister(adress, REG_MCP.PORT_A_BITS)
+        return readRegister(adress, REG_MCP.PORT_A_BITS)
     }
 
     /**
@@ -299,7 +299,7 @@ namespace PLCbit_IO {
     //% weight=92
     //% group="Bemenetek"
     export function readInput(adress : ADDRESS, input: BITS): boolean {
-        let port = PlcBit.readRegister(adress, REG_MCP.PORT_A_BITS)
+        let port = readRegister(adress, REG_MCP.PORT_A_BITS)
         return ((port & (1 << input)) == 1)
     }
 
