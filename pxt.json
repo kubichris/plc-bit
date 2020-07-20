@@ -1,10 +1,10 @@
 {
-    "name": "MCP23017",
+    "name": "PLC:BIT",
     "version": "0.0.3",
     "dependencies": {
         "core": "*"
     },
-    "description": "Blocks to control the MCP23017",
+    "description": "Blocks to control the MCP23017 based isolated I/O card",
     "files": [
         "MCP23017.ts",
         "README.md"
