@@ -1,42 +1,3 @@
-Skip to content
-Search or jump to…
-
-Pull requests
-Issues
-Marketplace
-Explore
- 
-@kubichris 
-Learn Git and GitHub without any code!
-Using the Hello World guide, you’ll start a branch, write comments, and open a pull request.
-
-
-tinkertanker
-/
-pxt-oled-ssd1306
-10
-1436
-Code
-Issues
-1
-Pull requests
-Actions
-Projects
-Wiki
-Security
-Insights
-pxt-oled-ssd1306/main.ts /
-@elecfreaks1
-elecfreaks1 Update main.ts
-Latest commit 0f12706 on May 29
- History
- 6 contributors
-@yjsoon@nioq@elecfreaks1@ranaldmiao@jensenhuangyankai@atrus159
-600 lines (587 sloc)  14.7 KB
-  
-Code navigation is available!
-Navigate your code with ease. Click on function and method calls to jump to their definitions or references in the same repository. Learn more
-
 declare interface Math {
     floor(x: number): number;
 }
@@ -637,15 +598,3 @@ namespace OLED {
         clear()
     }
 } 
-© 2020 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Help
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
