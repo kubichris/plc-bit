@@ -1,13 +1,18 @@
 {
-    "name": "PLC:BIT",
+    "name": "pxt-PLC:BIT",
     "version": "0.0.1",
+    "description": "Blocks to control the MCP23017 based isolated I/O card",
+    "license": "MIT",
     "dependencies": {
         "core": "*"
     },
-    "description": "Blocks to control the MCP23017 based isolated I/O card",
     "files": [
-        "MCP23017.ts",
-        "README.md"
+        "README.md",
+        "MCP23017.ts"
     ],
-    "public": true
+    "testFiles": [
+        "test.ts"
+    ],
+    "public": true,
+    "preferredEditor": "tsprj"
 }
