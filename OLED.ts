@@ -104,9 +104,9 @@ namespace OLED {
 
             }
         }
-        charX = 30
-        charY = 2
-        writeString("Loading:")
+//        charX = 30
+//        charY = 2
+//        writeString("Loading:")
     }
     function drawLoadingBar(percent: number) {
         charX = 78
@@ -180,6 +180,20 @@ namespace OLED {
         charY++
         charX = xOffset
     }
+    
+    //% block="új pozíció x:$x y:$y" 
+    //% weight=6
+    function newPosition(x: number, y: number) {
+        command(SSD1306_SETCOLUMNADRESS)
+        command(x)
+        command(x + 5)
+        command(SSD1306_SETPAGEADRESS)
+        command(y)
+        command(y + 1)
+        charX = (x / 6)
+        charY = 0
+    }
+    
     function drawChar(x: number, y: number, c: string) {
         command(SSD1306_SETCOLUMNADRESS)
         command(x)
