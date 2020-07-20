@@ -11,7 +11,8 @@
         "MCP23017.ts",
         "OLED.ts",
         "1602_LCD.ts",
-        "_locales/hu/OLED-strings.json"
+        "_locales/hu/pxt-PLCBIT-strings.json",
+        "_locales/hu/pxt-PLCBIT-jsdoc-strings.json"
     ],
     "testFiles": [
         "test.ts"
