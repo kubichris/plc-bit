@@ -42,7 +42,7 @@ enum ADDRESS {                     // address for MCP23017 (configurable by tyin
  * Blocks
  */
 "//% weight=100 color=#0fbc12 icon="
-namespace MCP23017 {
+namespace PlcBit {
     //% block
     export function clearAllOuputsOn(adress: ADDRESS, port: REG_PIO) {
         pins.i2cWriteNumber(adress, port + 0, NumberFormat.UInt16BE)
