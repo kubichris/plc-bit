@@ -1,0 +1,7 @@
+{
+"OLED.clear|block": "OLED Törlése",
+"OLED.drawLoading|block": "Állapotjelző: %percent",
+"OLED.writeString|block": "Szöveg kiírása $str",
+"OLED.writeNum|block": "Szám kiírása $num"
+
+}
