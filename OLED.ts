@@ -133,7 +133,7 @@ namespace OLED {
 
     //% block="Állapotjelző $percent % értékkel"
     //% percent.min=0 percent.max=100
-    //% weight=55
+    //% weight=65
     export function drawLoading(percent: number) {
         if (loadStarted) {
             drawLoadingBar(percent)
@@ -146,14 +146,14 @@ namespace OLED {
 
 
     //% block="$str szöveg kiírása"
-    //% weight=8
+    //% weight=42
     export function writeStringNewLine(str: string) {
         writeString(str)
         newLine()
     }
     
     //% block="$str szöveg kiírása sortörés nélkül"
-    //% weight=6
+    //% weight=46
     export function writeString(str: string) {
         for (let i = 0; i < str.length(); i++) {
             if (charX > displayWidth - 6) {
@@ -173,7 +173,7 @@ namespace OLED {
     }
 
     //% block="$str szöveg kiírása x:$x y:$y pozícióba sortöréssel"
-    //% weight=6
+    //% weight=48
     export function writeStringXyNewLine(str: string, x : number, y: number) {
         writeStringXy(str, x, y);
         newLine()
@@ -181,21 +181,21 @@ namespace OLED {
     
    
     //% block="$n szám kiírása sortörés nélkül"
-    //% weight=5
+    //% weight=34
     export function writeNum(n: number) {
         let numString = n.toString()
         writeString(numString)
     }
 
     //% block="$n szám kiírása"
-    //% weight=7
+    //% weight=36
     export function writeNumNewLine(n: number) {
         writeNum(n)
         newLine()
     }
 
     //% block="$n szám kiírása x:$x y:$y pozícióba sortörés nélkül"
-    //% weight=60
+    //% weight=40
     export function writeNumXy(n: number, x: number, y: number) {
         charX = x
         charY = y
@@ -203,21 +203,21 @@ namespace OLED {
     }
 
     //% block="$n szám kiírása x:$x y:$y pozícióba sortöréssel"
-    //% weight=7
+    //% weight=38
     export function writeNumXyNewLine(n: number, x: number, y: number) {
         writeNumXy(n,x,y)
         newLine()
     }
     
     //% block="új sor"
-    //% weight=4
+    //% weight=30
     export function newLine() {
         charY++
         charX = xOffset
     }
     
     //% block="új pozíció x:$x y:$y" 
-    //% weight=6
+    //% weight=20
     function newPosition(x: number, y: number) {
         command(SSD1306_SETCOLUMNADRESS)
         command(x)
