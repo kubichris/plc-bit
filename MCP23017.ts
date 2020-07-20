@@ -12,22 +12,7 @@
 */
 
 let outputABuffer = 0;
-let outputBBuffer = 0;
 
-enum SET_PORT {
-    //% block=PORT_A
-    A = 0,
-    //% block=PORT_B
-    B = 256
-}
-
-
-enum REG_PIO {
-    //% block=PORT_A
-    OUTPUTS = 4608,
-    //% block=PORT_B
-    INPUTS = 4864
-}
 enum ADDRESS {                     // address for MCP23017 (configurable by tying pins 15,16,17 on the mcp23017 high or low)
     //% block=0x20
     A20 = 0x20,               // 
@@ -112,9 +97,9 @@ namespace PlcBit {
 
     /**
      * Egy regiszter írása
-     * adress: A PLC:BIT címe
-     * reg: Regiszter
-     * value: A regiszterbe írandó decimális érték
+     * @param adress: A PLC:BIT címe
+     * @param reg: Regiszter
+     * @param value: A regiszterbe írandó decimális érték
      */
     //% blockId=Regiszter írása 
     //%advanced=true 
@@ -125,8 +110,8 @@ namespace PlcBit {
 
     /**
      * Egy regiszter olvasása
-     * adress: A PLC:BIT címe
-     * reg: Regiszter
+     * @param adress: A PLC:BIT címe
+     * @param reg: Regiszter
      */
     //%blockId=Regiszter olvasása 
     //%advanced=true 
@@ -138,6 +123,7 @@ namespace PlcBit {
 
     /**
      * A PLC:BIT ki és bemeneteinek inicializálása
+     * @param adress A PLC:BIT címe
      */
     //% blockId="initPlcBit"
     //% block="A %adress PLC:BIT inicializálása"
@@ -157,7 +143,7 @@ namespace PlcBit {
 
     /**
      * Minden kimenet törlése
-     *adress Az eszköz címe, pl.: 0x20
+     * @param adress Az eszköz címe, pl.: 0x20
      */
     //% blockId="A PLC:BIT kimeneteinek alaphelyzetbe állítása"
     //% block="A(z) %adress PLC:BIT minden kimenete KI"
@@ -255,7 +241,6 @@ namespace PlcBit {
     */
     //% blockId="Az eszköz kimeneteinek frissítése"
     //% block="A %adress PLC:BIT kimeneteinek frissítése"
-    //% bit.min=0 bit.max=7
     //% weight=88
     //% group="Kimenetek"
     export function updateOutput(adress: ADDRESS) {
@@ -270,7 +255,6 @@ namespace PlcBit {
     */
     //% blockId="Az eszköz kimeneteinek visszaolvasása"
     //% block="A %adress PLC:BIT kimeneteinek kiolvasása"
-    //% bit.min=0 bit.max=7
     //% weight=88
     //% group="Kimenetek"
     export function readAllOutputs(adress : ADDRESS): number {
@@ -280,10 +264,11 @@ namespace PlcBit {
     /**
      * Egy kimenet olvasása
      * @param adress Az eszköz címe, pl.: 0x20
+     * @param output A kimenet sorszáma
+     * 
     */
     //% blockId="Az eszköz egy kimenetének visszaolvasása"
     //% block="A %adress PLC:BIT %output kimenetének kiolvasása"
-    //% bit.min=0 bit.max=7
     //% weight=88
     //% group="Kimenetek"
     export function readOutput(adress : ADDRESS, output: BITS): boolean {
@@ -298,7 +283,6 @@ namespace PlcBit {
     */
     //% blockId="Az eszköz bemeneteinek kiolvasása"
     //% block="A %adress PLC:BIT bemeneteinek kiolvasása"
-    //% bit.min=0 bit.max=7
     //% weight=91
     //% group="Bemenetek"
     export function readInputAll(adress : ADDRESS): number {
@@ -308,10 +292,10 @@ namespace PlcBit {
     /**
      * Egy bemenet olvasása
      * @param adress Az eszköz címe, pl.: 0x20
+     * @param input A bemenet sorszáma
     */
     //% blockId="Az eszköz egy bemenetének kiolvasása"
     //% block="A %adress PLC:BIT %input bemenetének kiolvasása"
-    //% bit.min=0 bit.max=7
     //% weight=92
     //% group="Bemenetek"
     export function readInput(adress : ADDRESS, input: BITS): boolean {
