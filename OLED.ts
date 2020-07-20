@@ -49,7 +49,7 @@ namespace OLED {
         pins.i2cWriteBuffer(chipAdress, buf, false)
     }
     //% block="OLED törlése"
-    //% weight=3
+    //% weight=90
     export function clear() {
         loadStarted = false
         loadPercent = 0
@@ -133,7 +133,7 @@ namespace OLED {
 
     //% block="Állapotjelző $percent % értékkel"
     //% percent.min=0 percent.max=100
-    //% weight=2
+    //% weight=55
     export function drawLoading(percent: number) {
         if (loadStarted) {
             drawLoadingBar(percent)
@@ -145,7 +145,7 @@ namespace OLED {
     }
 
 
-    //% block="$str szövegg kiírása"
+    //% block="$str szöveg kiírása"
     //% weight=8
     export function writeStringNewLine(str: string) {
         writeString(str)
@@ -165,7 +165,7 @@ namespace OLED {
     }
 
     //% block="$str szöveg kiírása x:$x y:$y pozícióba sortörés nélkül"
-    //% weight=6
+    //% weight=50
     export function writeStringXy(str: string, x : number, y: number) {
         charX = x;
         charY = y;
@@ -195,7 +195,7 @@ namespace OLED {
     }
 
     //% block="$n szám kiírása x:$x y:$y pozícióba sortörés nélkül"
-    //% weight=5
+    //% weight=60
     export function writeNumXy(n: number, x: number, y: number) {
         charX = x
         charY = y
@@ -298,12 +298,12 @@ namespace OLED {
         }
     }
 
-    //% block="egyen rajzolása|x: $x0 y: $y0 pozíciótól| x: $x1 y: $y1 pozícióig"
+    //% block="egyenes rajzolása|x: $x0 y: $y0 pozíciótól| x: $x1 y: $y1 pozícióig"
     //% x0.defl=0
     //% y0.defl=0
     //% x1.defl=20
     //% y1.defl=20
-    //% weight=1
+    //% weight=80
     export function drawLine(x0: number, y0: number, x1: number, y1: number) {
         let pixels: Array<Array<number>> = []
         let kx: number, ky: number, c: number, i: number, xx: number, yy: number, dx: number, dy: number;
@@ -344,7 +344,7 @@ namespace OLED {
     //% y0.defl=0
     //% x1.defl=20
     //% y1.defl=20
-    //% weight=0
+    //% weight=70
     export function drawRectangle(x0: number, y0: number, x1: number, y1: number) {
         drawLine(x0, y0, x1, y0)
         drawLine(x0, y1, x1, y1)
@@ -354,7 +354,7 @@ namespace OLED {
     //% block="OLED inicializálása $width szélességgel és $height magassággal"
     //% width.defl=128
     //% height.defl=64
-    //% weight=9
+    //% weight=95
     export function init(width: number, height: number) {
         command(SSD1306_DISPLAYOFF);
         command(SSD1306_SETDISPLAYCLOCKDIV);
