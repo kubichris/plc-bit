@@ -92,7 +92,7 @@ const enum REG_MCP {
  * Blocks
  */
 //% weight=100 color=#0fbc12 icon=
-namespace PlcBit {
+namespace PLCbit_IO {
 
 
     /**
