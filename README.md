@@ -1,18 +1,11 @@
 # pxt-PLC:BIT
 
-This extension provides easy to use blocks for the MCP23017 GPIO Extender.
-You can easily turn on or off LEDs.
-
-Projects at Hackster (with my old Version):
-
+This extension provides easy to use blocks for the MCP23017 GPIO Extender based BIT:PLC.
+You can easily turn on or off 8 isolated Outputs and read values of 8 isolated inputs.
 
 ## License
  (C) (CC) Creative Commons https://creativecommons.org/licenses/by-sa/4.0/legalcode
 
- MIT License: loops.ts by Philipp Henkel (doesn´t work with the calliope V0 core)
-
 ## Supported targets
-
 * for PXT/microbit
-* for PXT/calliope
 
