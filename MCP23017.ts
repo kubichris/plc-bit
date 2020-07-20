@@ -1,6 +1,9 @@
 
 /**
  *  MCP23017-control blocks
+     //% name.min= name.max=16
+    //% group="LEDs"
+
  */
 
 let outputABuffer = 0;
@@ -43,7 +46,14 @@ enum ADDRESS {                     // address for MCP23017 (configurable by tyin
  */
 "//% weight=100 color=#0fbc12 icon="
 namespace PlcBit {
-    //% block
+    /**
+     * Minden kimenet törlése
+     * @param adress Address of MCP23017, pl.: 0x20
+     * @param port PORT_A vagy PORT_B
+     */
+    //% blockId="clearAllOuputsOn"
+    //% block="A(z) %adress című MCP23017 %port portjainak alaphelyzetbe állítása"
+    //% weight=88
     export function clearAllOuputsOn(adress: ADDRESS, port: REG_PIO) {
         pins.i2cWriteNumber(adress, port + 0, NumberFormat.UInt16BE)
     }
