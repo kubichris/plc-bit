@@ -145,6 +145,13 @@ namespace OLED {
     }
 
 
+    //% block="$str szövegg kiírása"
+    //% weight=8
+    export function writeStringNewLine(str: string) {
+        writeString(str)
+        newLine()
+    }
+    
     //% block="$str szöveg kiírása sortörés nélkül"
     //% weight=6
     export function writeString(str: string) {
@@ -156,24 +163,52 @@ namespace OLED {
             charX += 6
         }
     }
+
+    //% block="$str szöveg kiírása x:$x y:$y pozícióba sortörés nélkül"
+    //% weight=6
+    export function writeStringXy(str: string, x : number, y: number) {
+        charX = x;
+        charY = y;
+        writeString(str);
+    }
+
+    //% block="$str szöveg kiírása x:$x y:$y pozícióba sortöréssel"
+    //% weight=6
+    export function writeStringXyNewLine(str: string, x : number, y: number) {
+        writeStringXy(str, x, y);
+        newLine()
+    }
+    
+   
     //% block="$n szám kiírása sortörés nélkül"
     //% weight=5
     export function writeNum(n: number) {
         let numString = n.toString()
         writeString(numString)
     }
-    //% block="$str szövegg kiírása"
-    //% weight=8
-    export function writeStringNewLine(str: string) {
-        writeString(str)
-        newLine()
-    }
+
     //% block="$n szám kiírása"
     //% weight=7
     export function writeNumNewLine(n: number) {
         writeNum(n)
         newLine()
     }
+
+    //% block="$n szám kiírása x:$x y:$y pozícióba sortörés nélkül"
+    //% weight=5
+    export function writeNumXy(n: number, x: number, y: number) {
+        charX = x
+        charY = y
+        writeNum(n)
+    }
+
+    //% block="$n szám kiírása x:$x y:$y pozícióba sortöréssel"
+    //% weight=7
+    export function writeNumXyNewLine(n: number, x: number, y: number) {
+        writeNumXy(n,x,y)
+        newLine()
+    }
+    
     //% block="új sor"
     //% weight=4
     export function newLine() {
