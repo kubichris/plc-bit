@@ -18,9 +18,9 @@ enum SET_PORT {
 
 enum REG_PIO {
     //% block=PORT_A
-    A = 4608,
+    OUTPUTS = 4608,
     //% block=PORT_B
-    B = 4864
+    INPUTS = 4864
 }
 enum ADDRESS {                     // address for MCP23017 (configurable by tying pins 15,16,17 on the mcp23017 high or low)
     //% block=0x20
@@ -49,18 +49,23 @@ namespace PlcBit {
     /**
      * Minden kimenet törlése
      * @param adress Address of MCP23017, pl.: 0x20
-     * @param port PORT_A vagy PORT_B
      */
-    //% blockId="clearAllOuputsOn"
-    //% block="A(z) %adress című MCP23017 %port portjainak alaphelyzetbe állítása"
+    //% blockId="Összes kimenet törlése"
+    //% block="A(z) %adress című MCP23017 eszköz kimeneteinek alaphelyzetbe állítása"
     //% weight=88
-    export function clearAllOuputsOn(adress: ADDRESS, port: REG_PIO) {
-        pins.i2cWriteNumber(adress, port + 0, NumberFormat.UInt16BE)
+    export function clearAllOuputsOn(adress: ADDRESS) {
+        pins.i2cWriteNumber(adress, OUTPUTS + 0, NumberFormat.UInt16BE)
     }
 
-    //% block
-    export function setAllOuputsOn(adress: ADDRESS, port: REG_PIO) {
-        pins.i2cWriteNumber(adress, port + 0B11101111, NumberFormat.UInt16BE)
+    /**
+     * Minden kimenet bekapcsolása
+     * @param adress Address of MCP23017, pl.: 0x20
+    */
+    //% blockId="Összes kimenet bekapcsolása"
+    //% block="A(z) %adress című MCP23017 eszköz kimeneteinek bekapcsolása"
+    //% weight=88
+    export function setAllOuputsOn(adress: ADDRESS) {
+        pins.i2cWriteNumber(adress, OUTPUTS + 0B11101111, NumberFormat.UInt16BE)
     }
 
 
