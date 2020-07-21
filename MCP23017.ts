@@ -147,7 +147,7 @@ namespace PLCbit_IO {
      */
     //% blockId="A PLC:BIT kimeneteinek alaphelyzetbe állítása"
     //% block="A(z) %adress PLC:BIT minden kimenete KI"
-    //% weight=86
+    //% weight=70
     //% group="Induláshoz"
     export function clearAllOuputs(adress: ADDRESS) {
         outputABuffer = 0
@@ -160,7 +160,7 @@ namespace PLCbit_IO {
     */
     //% blockId="A PLC:BIT kimeneteinek bekapcsolása"
     //% block="A %adress PLC:BIT minden kimenete BE"
-    //% weight=87
+    //% weight=60
     //% group="Induláshoz"
     export function setAllOuputs(adress: ADDRESS) {
         outputABuffer = 0xff
@@ -176,7 +176,7 @@ namespace PLCbit_IO {
     //% blockId="A PLC:BIT egy kimenetének bekapcsolása"
     //% block="A %adress PLC:BIT %bit. kimenet BE"
     //% bit.min=0 bit.max=7
-    //% weight=82
+    //% weight=50
     //% group="Kimenetek"
     export function setOutput(adress: ADDRESS, bit: BITS) {
         outputABuffer = outputABuffer | (1 << bit)
@@ -191,7 +191,7 @@ namespace PLCbit_IO {
     //% blockId="Az eszköz egy kimenetének kikapcsolása"
     //% block="A %adress PLC:BIT %bit. kimenet KI"
     //% bit.min=0 bit.max=7
-    //% weight=83
+    //% weight=48
     //% group="Kimenetek"
     export function clearOutput(adress: ADDRESS, bit: BITS) {
         let tempMask = 1 << bit
@@ -209,7 +209,7 @@ namespace PLCbit_IO {
     //% blockId="Az eszköz egy kimenetének írása"
     //% block="A %adress PLC:BIT %bit. kimenet %value"
     //% bit.min=0 bit.max=7
-    //% weight=84
+    //% weight=44
     //% group="Kimenetek"
     export function writeOutput(adress: ADDRESS, bit: BITS, value: boolean) {
         if (value) 
@@ -226,7 +226,7 @@ namespace PLCbit_IO {
     //% blockId="Az eszköz egy kimenetének váltása Ki->Be vagy Be->Ki"
     //% block="A %adress PLC:BIT %bit. kimenet váltás"
     //% bit.min=0 bit.max=7
-    //% weight=85
+    //% weight=46
     //% group="Kimenetek"
     export function toggleOutput(adress: ADDRESS, bit: BITS) {
         let tempMask = 1 << bit
@@ -241,13 +241,11 @@ namespace PLCbit_IO {
     */
     //% blockId="Az eszköz kimeneteinek frissítése"
     //% block="A %adress PLC:BIT kimeneteinek frissítése"
-    //% weight=88
+    //% weight=42
     //% group="Kimenetek"
     export function updateOutput(adress: ADDRESS) {
         writeRegister(adress, REG_MCP.PORT_B_BITS, outputABuffer)
     }
-
-
 
     /**
      * Összes kimenet olvasása
@@ -255,7 +253,7 @@ namespace PLCbit_IO {
     */
     //% blockId="Az eszköz kimeneteinek visszaolvasása"
     //% block="A %adress PLC:BIT kimeneteinek kiolvasása"
-    //% weight=88
+    //% weight=40
     //% group="Kimenetek"
     export function readAllOutputs(adress : ADDRESS): number {
         return readRegister(adress, REG_MCP.PORT_B_BITS)
@@ -269,7 +267,7 @@ namespace PLCbit_IO {
     */
     //% blockId="Az eszköz egy kimenetének visszaolvasása"
     //% block="A %adress PLC:BIT %output kimenetének kiolvasása"
-    //% weight=88
+    //% weight=38
     //% group="Kimenetek"
     export function readOutput(adress : ADDRESS, output: BITS): boolean {
         let port = readRegister(adress, REG_MCP.PORT_B_BITS)
@@ -283,7 +281,7 @@ namespace PLCbit_IO {
     */
     //% blockId="Az eszköz bemeneteinek kiolvasása"
     //% block="A %adress PLC:BIT bemeneteinek kiolvasása"
-    //% weight=91
+    //% weight=30
     //% group="Bemenetek"
     export function readInputAll(adress : ADDRESS): number {
         return readRegister(adress, REG_MCP.PORT_A_BITS)
@@ -296,7 +294,7 @@ namespace PLCbit_IO {
     */
     //% blockId="Az eszköz egy bemenetének kiolvasása"
     //% block="A %adress PLC:BIT %input bemenetének kiolvasása"
-    //% weight=92
+    //% weight=28
     //% group="Bemenetek"
     export function readInput(adress : ADDRESS, input: BITS): boolean {
         let port = readRegister(adress, REG_MCP.PORT_A_BITS)
