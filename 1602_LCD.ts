@@ -68,8 +68,8 @@ namespace PLCbit_LCD {
     }
 
     /**
-     * initial LCD, set I2C address. Address is 39/63 for PCF8574/PCF8574A
-     * @param Addr is i2c address for LCD, eg: 0, 39, 63. 0 is auto find address
+     * Az LCD inicializálása a megadott I2C címmel. (PCF8574 -> 39 / PCF8574A -> 63)
+     * @param Addr az LCD I2C címe, pl.: 0, 39, 63. 0 esetén automatikus címzés
      */
     //% blockId="I2C_LCD1620_SET_ADDRESS" 
     //% block="LCD inicializálása %addr címen"
@@ -93,10 +93,10 @@ namespace PLCbit_LCD {
     }
 
     /**
-     * show a number in LCD at given position
-     * @param n is number will be show, eg: 10, 100, 200
-     * @param x is LCD column position, eg: 0
-     * @param y is LCD row position, eg: 0
+     * Egy szám megjelenítése a megadott pozícióban
+     * @param n a megjelenítendő szám, pl: 10, 100, 200
+     * @param x az LCD oszlopának pozíciója (0-15)
+     * @param y az LCD sor pozíciója (0-1)
      */
     //% blockId="I2C_LCD1620_SHOW_NUMBER" 
     //% block="%n szám kiírása|x %x és |y %y pozícióban"
@@ -110,10 +110,10 @@ namespace PLCbit_LCD {
     }
 
     /**
-     * show a string in LCD at given position
-     * @param s is string will be show, eg: "Hello"
-     * @param x is LCD column position, [0 - 15], eg: 0
-     * @param y is LCD row position, [0 - 1], eg: 0
+     * Egy magadott szöveg megjelenítése az LCD-n
+     * @param s a megjelenítendő szöveg
+     * @param x az LCD oszlopának pozíciója (0-15)
+     * @param y az LCD sor pozíciója (0-1)
      */
     //% blockId="I2C_LCD1620_SHOW_STRING" 
     //% block="%s szöveg kiírása|x %x és|y %y pozícióban"
@@ -137,9 +137,10 @@ namespace PLCbit_LCD {
     }
 
     /**
-     * turn on LCD
+     * Az LCD bekapcsolása
      */
-    //% blockId="I2C_LCD1620_ON" block="turn on LCD"
+    //% blockId="I2C_LCD1620_ON" 
+    //%block="LCD bekapcsolása"
     //% weight=81 blockGap=8
     //% parts=LCD1602_I2C trackArgs=0
     export function on(): void {
@@ -147,9 +148,10 @@ namespace PLCbit_LCD {
     }
 
     /**
-     * turn off LCD
+     * Az LCD kikapcsolása
      */
-    //% blockId="I2C_LCD1620_OFF" block="turn off LCD"
+    //% blockId="I2C_LCD1620_OFF" 
+    //%block="LCD kikapcsolása"
     //% weight=80 blockGap=8
     //% parts=LCD1602_I2C trackArgs=0
     export function off(): void {
@@ -157,9 +159,10 @@ namespace PLCbit_LCD {
     }
 
     /**
-     * clear all display content
+     * A teljes LCD tartalmának törlése
      */
-    //% blockId="I2C_LCD1620_CLEAR" block="clear LCD"
+    //% blockId="I2C_LCD1620_CLEAR" 
+    //%block="LCD törlése"
     //% weight=85 blockGap=8
     //% parts=LCD1602_I2C trackArgs=0
     export function clear(): void {
@@ -167,9 +170,10 @@ namespace PLCbit_LCD {
     }
 
     /**
-     * turn on LCD backlight
+     * Az LCD háttérvilágításának bekapcsolása
      */
-    //% blockId="I2C_LCD1620_BACKLIGHT_ON" block="turn on backlight"
+    //% blockId="I2C_LCD1620_BACKLIGHT_ON" 
+    //%block="világítás be"
     //% weight=71 blockGap=8
     //% parts=LCD1602_I2C trackArgs=0
     export function BacklightOn(): void {
@@ -178,9 +182,9 @@ namespace PLCbit_LCD {
     }
 
     /**
-     * turn off LCD backlight
+     * Az LCD háttérvilágításának kikapcsolása
      */
-    //% blockId="I2C_LCD1620_BACKLIGHT_OFF" block="turn off backlight"
+    //% blockId="I2C_LCD1620_BACKLIGHT_OFF" block="világítás ki"
     //% weight=70 blockGap=8
     //% parts=LCD1602_I2C trackArgs=0
     export function BacklightOff(): void {
@@ -189,9 +193,10 @@ namespace PLCbit_LCD {
     }
 
     /**
-     * shift left
+     * A képernyő tartalmának balra tolása
      */
-    //% blockId="I2C_LCD1620_SHL" block="Shift Left"
+    //% blockId="I2C_LCD1620_SHL" 
+    //%block="balra tolás"
     //% weight=61 blockGap=8
     //% parts=LCD1602_I2C trackArgs=0
     export function shl(): void {
@@ -199,9 +204,10 @@ namespace PLCbit_LCD {
     }
 
     /**
-     * shift right
+     * A képernyő tartalmának jobbra tolása
      */
-    //% blockId="I2C_LCD1620_SHR" block="Shift Right"
+    //% blockId="I2C_LCD1620_SHR" 
+    //%block="jobbra tolás"
     //% weight=60 blockGap=8
     //% parts=LCD1602_I2C trackArgs=0
     export function shr(): void {
