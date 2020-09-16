@@ -131,7 +131,7 @@ namespace PLCbit_OLED {
         loadPercent = num
     }
 
-    //% block="Állapotjelző $percent % értékkel"
+    //% block="OLED Állapotjelző $percent % értékkel"
     //% percent.min=0 percent.max=100
     //% weight=65
     export function drawLoading(percent: number) {
@@ -145,14 +145,14 @@ namespace PLCbit_OLED {
     }
 
 
-    //% block="$str szöveg kiírása"
+    //% block="OLED $str szöveg kiírása"
     //% weight=42
     export function writeStringNewLine(str: string) {
         writeString(str)
         newLine()
     }
     
-    //% block="$str szöveg kiírása sortörés nélkül"
+    //% block="OLED $str szöveg kiírása sortörés nélkül"
     //% weight=46
     export function writeString(str: string) {
         for (let i = 0; i < str.length(); i++) {
@@ -164,7 +164,7 @@ namespace PLCbit_OLED {
         }
     }
 
-    //% block="$str szöveg kiírása x:$x y:$y pozícióba sortörés nélkül"
+    //% block="OLED $str szöveg kiírása x:$x y:$y pozícióba sortörés nélkül"
     //% weight=50
     export function writeStringXy(str: string, x : number, y: number) {
         charX = x;
@@ -172,7 +172,7 @@ namespace PLCbit_OLED {
         writeString(str);
     }
 
-    //% block="$str szöveg kiírása x:$x y:$y pozícióba sortöréssel"
+    //% block="OLED $str szöveg kiírása x:$x y:$y pozícióba sortöréssel"
     //% weight=48
     export function writeStringXyNewLine(str: string, x : number, y: number) {
         writeStringXy(str, x, y);
@@ -180,21 +180,21 @@ namespace PLCbit_OLED {
     }
     
    
-    //% block="$n szám kiírása sortörés nélkül"
+    //% block="OLED $n szám kiírása sortörés nélkül"
     //% weight=34
     export function writeNum(n: number) {
         let numString = n.toString()
         writeString(numString)
     }
 
-    //% block="$n szám kiírása"
+    //% block="OLED $n szám kiírása"
     //% weight=36
     export function writeNumNewLine(n: number) {
         writeNum(n)
         newLine()
     }
 
-    //% block="$n szám kiírása x:$x y:$y pozícióba sortörés nélkül"
+    //% block="OLED $n szám kiírása x:$x y:$y pozícióba sortörés nélkül"
     //% weight=40
     export function writeNumXy(n: number, x: number, y: number) {
         charX = x
@@ -202,14 +202,14 @@ namespace PLCbit_OLED {
         writeNum(n)
     }
 
-    //% block="$n szám kiírása x:$x y:$y pozícióba sortöréssel"
+    //% block="OLED $n szám kiírása x:$x y:$y pozícióba sortöréssel"
     //% weight=38
     export function writeNumXyNewLine(n: number, x: number, y: number) {
         writeNumXy(n,x,y)
         newLine()
     }
     
-    //% block="új sor"
+    //% block="OLED új sor"
     //% weight=30
     export function newLine() {
         charY++
@@ -298,7 +298,7 @@ namespace PLCbit_OLED {
         }
     }
 
-    //% block="egyenes rajzolása|x: $x0 y: $y0 pozíciótól| x: $x1 y: $y1 pozícióig"
+    //% block="OLED egyenes rajzolása|x: $x0 y: $y0 pozíciótól| x: $x1 y: $y1 pozícióig"
     //% x0.defl=0
     //% y0.defl=0
     //% x1.defl=20
@@ -339,7 +339,7 @@ namespace PLCbit_OLED {
         drawShape(pixels)
     }
 
-    //% block="négyzet rajzolása|x: $x0 y: $y0 pozíciótól| x: $x1 y: $y1 pozícióig"
+    //% block="OLED négyzet rajzolása|x: $x0 y: $y0 pozíciótól| x: $x1 y: $y1 pozícióig"
     //% x0.defl=0
     //% y0.defl=0
     //% x1.defl=20
