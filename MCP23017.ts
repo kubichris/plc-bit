@@ -207,7 +207,7 @@ namespace PLCbit_IO {
      * @param value A kimenetek értéke
     */
     //% blockId="Az eszköz minden kimenetének írása"
-    //% block="A %adress PLC:BIT %bit. kimenetei legyen %value"
+    //% block="A %adress PLC:BIT kimenetei legyen %value"
     //% bit.min=0 bit.max=255
     //% weight=45
     //% group="Kimenetek"
@@ -357,7 +357,7 @@ namespace PLCbit_IO {
     //% block="%bin szám %bit.bitjének módosítása %value értékre"
     //% weight=27
     //% bit.min=0 bit.max=7
-    //% group="Bemenetek"
+    //% group="Egyéb"
     export function setBit( bin : number, bit: number, value : boolean) : number {
         let num : number = bin
         let bitMask = 1 << bit
@@ -382,7 +382,7 @@ namespace PLCbit_IO {
     //% blockId="Szám binárissá konvertálása"
     //% block="%bin bináris értéke"
     //% weight=27
-    //% group="Bemenetek"
+    //% group="Egyéb"
     export function showBin( bin : number) : string {
         let str : string = ""
         let i : number;
