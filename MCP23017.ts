@@ -313,7 +313,7 @@ namespace PLCbit_IO {
     //% weight=30
     //% group="Bemenetek"
     export function readInputAll(adress : ADDRESS): number {
-        return readRegister(adress, REG_MCP.PORT_A_BITS)
+        return (readRegister(adress, REG_MCP.PORT_A_BITS) & 0xff)
     }
 
     /**
@@ -327,7 +327,7 @@ namespace PLCbit_IO {
     //% group="Bemenetek"
     export function readInput(adress : ADDRESS, input: BITS): boolean {
         let port = readRegister(adress, REG_MCP.PORT_A_BITS)
-        return ((port & (1 << input)) == 1)
+        return ((port & (1 << input)) != 0)
     }
 
 
