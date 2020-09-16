@@ -331,6 +331,28 @@ namespace PLCbit_IO {
     }
 
 
+    /**
+     * Egy szám binárissá konvertálása
+     * @param bin A decimális érték
+    */
+    //% blockId="Szám binárissá konvertálása"
+    //% block="%bin bináris értéke"
+    //% weight=27
+    //% group="Bemenetek"
+    export function showBin( bin : number) : string {
+        let str : string = ""
+        let i : number;
+        for (i = 0; i < 8; i++){
+
+            if ((bin & (1<<i)) == 0)
+                str = str + "0"
+            else 
+                str = str + "1"    
+        }
+
+        return str
+    }
+
     // block
     function ReadNotAnd(addr: ADDRESS, reg: REG_MCP, value: number): boolean {
         return (!(readRegister(addr, reg) & value))
