@@ -348,6 +348,34 @@ namespace PLCbit_IO {
 
 
     /**
+     * Egy szám egy bitjének módosítása
+     * @param bin A decimális érték
+     * @param bit A módosítandó bit
+     * @param value Az új érték
+    */
+    //% blockId="Szám egy bitjének módosítása"
+    //% block="%bin szám %bit.bitjének módosítása %value értékre"
+    //% weight=27
+    //% bit.min=0 bit.max=7
+    //% group="Bemenetek"
+    export function setBit( bin : number, bit: number, value : boolean) : number {
+        let num : number = bin
+        let bitMask = 1 << bit
+
+        if (value) {
+            num = num | bitMask;
+        }
+        else 
+        {
+            bitMask = bitMask ^ 0B11111111    
+            num = num & bitMask;
+        }
+
+        return num
+    }
+
+
+    /**
      * Egy szám binárissá konvertálása
      * @param bin A decimális érték
     */
