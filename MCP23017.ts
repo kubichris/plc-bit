@@ -200,6 +200,22 @@ namespace PLCbit_IO {
         writeRegister(adress, REG_MCP.PORT_B_BITS, outputABuffer)
     }
 
+    
+  /**
+     * Az összes kimenet módosítása
+     * @param adress Az eszköz címe, pl.: 0x20
+     * @param value A kimenetek értéke
+    */
+    //% blockId="Az eszköz minden kimenetének írása"
+    //% block="A %adress PLC:BIT %bit. kimenetei legyen %value"
+    //% bit.min=0 bit.max=255
+    //% weight=45
+    //% group="Kimenetek"
+    export function writeAllOutput(adress: ADDRESS,  value: number) {
+        outputABuffer = value
+        writeRegister(adress, REG_MCP.PORT_B_BITS, outputABuffer)
+    }
+
    /**
      * Egy kimenet írása sorszám alapján (0-7)
      * @param adress Az eszköz címe, pl.: 0x20
