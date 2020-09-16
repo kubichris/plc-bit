@@ -200,6 +200,35 @@ namespace PLCbit_IO {
         writeRegister(adress, REG_MCP.PORT_B_BITS, outputABuffer)
     }
 
+   /**
+     * Egy kimenet írása sorszám alapján (0-7)
+     * @param adress Az eszköz címe, pl.: 0x20
+     * @param bit A kimenet sorszáma
+     * @param value A kimenet értéke
+    */
+    //% blockId="Az eszköz egy kimenetének írása sorszám alapján"
+    //% block="A %adress PLC:BIT %bit. kimenet %value"
+    //% bit.min=0 bit.max=7
+    //% weight=44
+    //% group="Kimenetek"
+    export function writeOutputNum(adress: ADDRESS, bit: number, value: boolean) {
+        let bitMask = 1 << bit
+
+        outputABuffer = readRegister(adress, REG_MCP.PORT_B_BITS)
+
+        if (value) {
+            outputABuffer = outputABuffer | bitMask;
+        }
+        else 
+        {
+            bitMask = bitMask ^ 0B11111111    
+            outputABuffer = outputABuffer & bitMask;
+        }
+
+        
+        writeRegister(adress, REG_MCP.PORT_B_BITS, outputABuffer)
+    }
+
     /**
      * Egy kimenet írása
      * @param adress Az eszköz címe, pl.: 0x20
@@ -209,7 +238,7 @@ namespace PLCbit_IO {
     //% blockId="Az eszköz egy kimenetének írása"
     //% block="A %adress PLC:BIT %bit. kimenet %value"
     //% bit.min=0 bit.max=7
-    //% weight=44
+    //% weight=43
     //% group="Kimenetek"
     export function writeOutput(adress: ADDRESS, bit: BITS, value: boolean) {
         if (value) 
