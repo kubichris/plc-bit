@@ -99,7 +99,7 @@ namespace PLCbit_LCD {
      * @param y az LCD sor pozíciója (0-1)
      */
     //% blockId="I2C_LCD1620_SHOW_NUMBER" 
-    //% block="%n szám kiírása|x %x és |y %y pozícióban"
+    //% block="LCD %n szám kiírása|x %x és |y %y pozícióban"
     //% weight=90 blockGap=8
     //% x.min=0 x.max=15
     //% y.min=0 y.max=1
@@ -116,7 +116,7 @@ namespace PLCbit_LCD {
      * @param y az LCD sor pozíciója (0-1)
      */
     //% blockId="I2C_LCD1620_SHOW_STRING" 
-    //% block="%s szöveg kiírása|x %x és|y %y pozícióban"
+    //% block="LCD %s szöveg kiírása|x %x és|y %y pozícióban"
     //% weight=90 blockGap=8
     //% x.min=0 x.max=15
     //% y.min=0 y.max=1
@@ -173,7 +173,7 @@ namespace PLCbit_LCD {
      * Az LCD háttérvilágításának bekapcsolása
      */
     //% blockId="I2C_LCD1620_BACKLIGHT_ON" 
-    //%block="világítás be"
+    //% block="LCD világítás be"
     //% weight=71 blockGap=8
     //% parts=LCD1602_I2C trackArgs=0
     export function BacklightOn(): void {
@@ -184,7 +184,8 @@ namespace PLCbit_LCD {
     /**
      * Az LCD háttérvilágításának kikapcsolása
      */
-    //% blockId="I2C_LCD1620_BACKLIGHT_OFF" block="világítás ki"
+    //% blockId="I2C_LCD1620_BACKLIGHT_OFF" 
+    //% block="LCD világítás ki"
     //% weight=70 blockGap=8
     //% parts=LCD1602_I2C trackArgs=0
     export function BacklightOff(): void {
@@ -196,7 +197,7 @@ namespace PLCbit_LCD {
      * A képernyő tartalmának balra tolása
      */
     //% blockId="I2C_LCD1620_SHL" 
-    //%block="balra tolás"
+    //% block="LCD balra tolás"
     //% weight=61 blockGap=8
     //% parts=LCD1602_I2C trackArgs=0
     export function shl(): void {
@@ -207,7 +208,7 @@ namespace PLCbit_LCD {
      * A képernyő tartalmának jobbra tolása
      */
     //% blockId="I2C_LCD1620_SHR" 
-    //%block="jobbra tolás"
+    //% block="LCD jobbra tolás"
     //% weight=60 blockGap=8
     //% parts=LCD1602_I2C trackArgs=0
     export function shr(): void {
