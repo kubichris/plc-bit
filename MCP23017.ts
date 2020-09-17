@@ -4,18 +4,7 @@
     //% group="LEDs"
 
  */
-//% weight=100 color=#0fbc12 icon= "\uf126"
-namespace PLCbit_IO {
 
-/*
-    PORT_A - BEMENETEK
-    PORT_B - KIMENETEK
-*/
-
-let outputABuffer = 0;
-
-let tempHandler : Action
-let thereIsHandler = false
 
 enum ADDRESS {                     // address for MCP23017 (configurable by tying pins 15,16,17 on the mcp23017 high or low)
     //% block=0x20
@@ -103,6 +92,18 @@ const enum REG_MCP {
     PORT_B_PULLUP = 0x0D
 }
 
+//% weight=100 color=#0fbc12 icon= "\uf126"
+namespace PLCbit_IO {
+
+/*
+    PORT_A - BEMENETEK
+    PORT_B - KIMENETEK
+*/
+
+let outputABuffer = 0;
+
+let tempHandler : Action
+let thereIsHandler = false
 
     /**
      * Egy regiszter írása
