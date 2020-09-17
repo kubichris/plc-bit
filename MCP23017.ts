@@ -166,8 +166,18 @@ let intPin = DigitalPin.P1
         writeRegister(adress, REG_MCP.PORT_A_POL, 0xff) //A bemenetek alacsony aktívak!
         clearAllOuputs
         
-        control.onEvent(intPin, DAL.MICROBIT_PIN_EVENT_ON_EDGE, tempHandler)
+        pins.setEvents(intPin, PinEventType.Edge)
+        pins.setPull(intPin, PinPullMode.PullUp)
+
+        //interrupt active low
+        control.onEvent(intPin, DAL.MICROBIT_PIN_EVENT_ON_EDGE, function () {
+            if (intPin == 0) {
+               tempHandler() 
+            }   
+        })
     }
+
+
 
     /**
      * Minden kimenet törlése
