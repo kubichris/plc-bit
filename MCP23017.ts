@@ -351,7 +351,7 @@ let intPin = DigitalPin.P1
      * A PLC:BIT bemenet válozás esemény
      */
     //% blockId="onInputsChanged"
-    //% block="A PLC:BIT bemenet változásának érzékelése"
+    //% block="A PLC:BIT egy bemenete megváltozott"
     //% weight=40
     //% group="Bemenetek"
     export function onInputsChanged(handler: Action): void {
