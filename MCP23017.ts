@@ -1,10 +1,11 @@
-
 /**
  *  MCP23017-control blocks
      //% name.min= name.max=16
     //% group="LEDs"
 
  */
+//% weight=100 color=#0fbc12 icon= "\uf126"
+namespace PLCbit_IO {
 
 /*
     PORT_A - BEMENETEK
@@ -101,11 +102,6 @@ const enum REG_MCP {
     //% B Port bemeneti felhúzó ellenállás
     PORT_B_PULLUP = 0x0D
 }
-/**
- * Blocks
- */
-//% weight=100 color=#0fbc12 icon= "\uf126"
-namespace PLCbit_IO {
 
 
     /**
@@ -135,11 +131,13 @@ namespace PLCbit_IO {
     }
 
     /**
-     * Do something when a receive IR
+     * A PLC:BIT bemenet válozás esemény
      */
-    //% blockId=onReceivedIR block="on IR message received" blockInlineInputs=true
-    //% weight=70 blockGap=10
-    export function onReceivedIR(handler: Action): void {
+    //% blockId="onInputsChanged"
+    //% block="A PLC:BIT bemenet változásának érzékelése"
+    //% weight=80
+    //% group="Bemenetek"
+    export function onInputsChanged(handler: Action): void {
         tempHandler = handler
         thereIsHandler = true
     }
