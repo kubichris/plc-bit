@@ -104,6 +104,7 @@ let outputABuffer = 0;
 
 let tempHandler : Action
 let thereIsHandler = false
+let intPin = DigitalPin.P1
 
     /**
      * Egy regiszter írása
@@ -144,14 +145,6 @@ let thereIsHandler = false
     }
 
 
-    control.inBackground(function () {
-        basic.forever(function () {
-            if (input.pinIsPressed(TouchPin.P0) && thereIsHandler) {
-                tempHandler()
-            }
-        })
-    })
-
     /**
      * A PLC:BIT ki és bemeneteinek inicializálása
      * @param adress A PLC:BIT címe
@@ -172,6 +165,8 @@ let thereIsHandler = false
 
         writeRegister(adress, REG_MCP.PORT_A_POL, 0xff) //A bemenetek alacsony aktívak!
         clearAllOuputs
+        
+        control.onEvent(intPin, DAL.MICROBIT_PIN_EVENT_ON_EDGE, tempHandler)
     }
 
     /**
