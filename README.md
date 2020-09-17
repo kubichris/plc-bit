@@ -4,8 +4,15 @@ This extension provides easy to use blocks for the MCP23017 GPIO Extender based 
 You can easily turn on or off 8 isolated Outputs and read values of 8 isolated inputs.
 
 ## License
- (C) (CC) Creative Commons https://creativecommons.org/licenses/by-sa/4.0/legalcode
+
+* MIT
 
 ## Supported targets
+
 * for PXT/microbit
+(The metadata above is needed for package search.)
+
+```package
+PLC:Bit=github:kubichris/plc-bit
+```
 
