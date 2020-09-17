@@ -13,6 +13,9 @@
 
 let outputABuffer = 0;
 
+let tempHandler : Action
+let thereIsHandler = false
+
 enum ADDRESS {                     // address for MCP23017 (configurable by tying pins 15,16,17 on the mcp23017 high or low)
     //% block=0x20
     A20 = 0x20,               // 
@@ -83,6 +86,16 @@ const enum REG_MCP {
     //% B Port polaritása
     PORT_B_POL = 0x03,
 
+    //% A Port interrupt
+    PORT_A_INTEN = 0x04,
+    //% B Port interrupt
+    PORT_B_INTEN = 0x05,
+
+    //% A Port interrupt
+    PORT_A_INTCON = 0x08,
+    //% B Port interrupt
+    PORT_B_INTCON = 0x09,
+
     //% A Port bemeneti felhúzó ellenállás
     PORT_A_PULLUP = 0x0C,
     //% B Port bemeneti felhúzó ellenállás
@@ -122,6 +135,25 @@ namespace PLCbit_IO {
     }
 
     /**
+     * Do something when a receive IR
+     */
+    //% blockId=onReceivedIR block="on IR message received" blockInlineInputs=true
+    //% weight=70 blockGap=10
+    export function onReceivedIR(handler: Action): void {
+        tempHandler = handler
+        thereIsHandler = true
+    }
+
+
+    control.inBackground(function () {
+        basic.forever(function () {
+            if (input.pinIsPressed(TouchPin.P0) && thereIsHandler) {
+                tempHandler()
+            }
+        })
+    })
+
+    /**
      * A PLC:BIT ki és bemeneteinek inicializálása
      * @param adress A PLC:BIT címe
      */
@@ -136,6 +168,8 @@ namespace PLCbit_IO {
         
         writeRegister(adress, REG_MCP.PORT_A_PULLUP, 0xff)   // Inputs + Pullups
         writeRegister(adress, REG_MCP.PORT_B_PULLUP, 0x00)   // Outputs 
+
+        writeRegister(adress, REG_MCP.PORT_B_INTEN, 0xFF)   // INTerrupt on PORT B
 
         writeRegister(adress, REG_MCP.PORT_A_POL, 0xff) //A bemenetek alacsony aktívak!
         clearAllOuputs
