@@ -1,5 +1,5 @@
 {
-    "name": "pxt-PLCBIT",
+    "name": "PLC:bit",
     "version": "0.0.2",
     "description": "Blocks to control the MCP23017 based isolated I/O card",
     "license": "MIT",
