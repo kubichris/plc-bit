@@ -132,17 +132,6 @@ let intPin = DigitalPin.P1
         return pins.i2cReadNumber(adress, NumberFormat.Int8LE)
     }
 
-    /**
-     * A PLC:BIT bemenet válozás esemény
-     */
-    //% blockId="onInputsChanged"
-    //% block="A PLC:BIT bemenet változásának érzékelése"
-    //% weight=80
-    //% group="Bemenetek"
-    export function onInputsChanged(handler: Action): void {
-        tempHandler = handler
-        thereIsHandler = true
-    }
 
 
     /**
@@ -355,6 +344,19 @@ let intPin = DigitalPin.P1
     export function readOutput(adress : ADDRESS, output: BITS): boolean {
         let port = readRegister(adress, REG_MCP.PORT_B_BITS)
         return ((port & (1 << output)) == 1)
+    }
+
+
+    /**
+     * A PLC:BIT bemenet válozás esemény
+     */
+    //% blockId="onInputsChanged"
+    //% block="A PLC:BIT bemenet változásának érzékelése"
+    //% weight=40
+    //% group="Bemenetek"
+    export function onInputsChanged(handler: Action): void {
+        tempHandler = handler
+        thereIsHandler = true
     }
 
 
