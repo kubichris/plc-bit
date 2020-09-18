@@ -104,7 +104,7 @@ let outputABuffer = 0;
 
 let tempHandler : Action
 let thereIsHandler = false
-let intPin = DigitalPin.P1
+let intPin = DigitalPin.P16
 
     /**
      * Egy regiszter írása
