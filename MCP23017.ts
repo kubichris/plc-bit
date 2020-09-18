@@ -86,6 +86,11 @@ const enum REG_MCP {
     //% B Port interrupt
     PORT_B_INTCON = 0x09,
 
+   //% A Port interrupt
+    PORT_A_IOCON = 0x0A,
+    //% B Port interrupt
+    PORT_B_IOCON = 0x0B,
+
     //% A Port bemeneti felhúzó ellenállás
     PORT_A_PULLUP = 0x0C,
     //% B Port bemeneti felhúzó ellenállás
@@ -151,6 +156,8 @@ let intPin = DigitalPin.P16
         writeRegister(adress, REG_MCP.PORT_B_PULLUP, 0x00)   // Outputs 
 
         writeRegister(adress, REG_MCP.PORT_B_INTEN, 0xFF)   // INTerrupt on PORT B
+        writeRegister(adress, REG_MCP.PORT_B_IOCON, 35)   // INTerrupt on PORT B
+        
 
         writeRegister(adress, REG_MCP.PORT_A_POL, 0xff) //A bemenetek alacsony aktívak!
         clearAllOuputs
