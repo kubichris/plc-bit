@@ -160,9 +160,9 @@ let intPin = DigitalPin.P16
 
         //interrupt active low
         control.onEvent(intPin, DAL.MICROBIT_PIN_EVENT_ON_EDGE, function () {
-            if (intPin == 0) {
+           // if (intPin == 0) {
                tempHandler() 
-            }   
+         //   }   
         })
     }
 
