@@ -156,7 +156,7 @@ let intPin = DigitalPin.P16
         writeRegister(adress, REG_MCP.PORT_B_PULLUP, 0x00)   // Outputs 
 
         writeRegister(adress, REG_MCP.PORT_A_INTEN, 0xFF)   // INTerrupt on PORT B
-    //    writeRegister(adress, REG_MCP.PORT_B_IOCON, 35)   // INTerrupt on PORT B
+        writeRegister(adress, REG_MCP.PORT_A_IOCON, 0x42)   // INTerrupt on PORT B
         
 
         writeRegister(adress, REG_MCP.PORT_A_POL, 0xff) //A bemenetek alacsony aktívak!
