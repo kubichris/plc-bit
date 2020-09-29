@@ -128,11 +128,11 @@ namespace PLCbit_Valve {
     }
 
     /**
-     * Used to set the pulse range (0-4095) of a given pin on the PCA9685
-     * @param chipAddress [64-125] The I2C address of your PCA9685; eg: 64
-     * @param pinNumber The pin number (0-15) to set the pulse range on
-     * @param onStep The range offset (0-4095) to turn the signal on
-     * @param offStep The range offset (0-4095) to turn the signal off
+     * A pulzustartomány beállítására szolgál (0-4095) tartományban
+     * @param chipAddress [64-125] A PCA9685 I2C címe, pl.: 64
+     * @param pinNumber a láb sorszáma (0-15) 
+     * @param onStep A bekapcsolásai impulzus hossza (0-4095)
+     * @param offStep A kikapcsolási impulzus hossza (0-4095)
      */
     //% block advanced=true
     export function setPinPulseRange(pinNumber: PinNum = 0, onStep: number = 0, offStep: number = 2048, chipAddress: number = 0x40): void {
@@ -159,13 +159,13 @@ namespace PLCbit_Valve {
     }
 
     /**
-     * Used to set the duty cycle (0-100) of a given led connected to the PCA9685
-     * @param chipAddress [64-125] The I2C address of your PCA9685; eg: 64
-     * @param ledNumber The number (1-16) of the LED to set the duty cycle on
-     * @param dutyCycle The duty cycle (0-100) to set the LED to
+     * Kitöltési tényező megadása (0-100) egy szelephez
+     * @param chipAddress [64-125] A PCA9685 I2C címe, pl.: 64
+     * @param A kimenet sorszáma (1-16) 
+     * @param A kitöltéi tényező (0-100)
      */
     //% block
-    export function setLedDutyCycle(ledNum: LEDNum = 1, dutyCycle: number, chipAddress: number = 0x40): void {
+    export function setLedDutyCycle(ledNum: LEDNum = 1, dutyCycle: number = 50, chipAddress: number = 0x40): void {
         ledNum = Math.max(1, Math.min(16, ledNum))
         dutyCycle = Math.max(0, Math.min(100, dutyCycle))
         const pwm = (dutyCycle * (chipResolution - 1)) / 100
@@ -177,12 +177,12 @@ namespace PLCbit_Valve {
   
   
     /**
-     * Used to setup the chip, will cause the chip to do a full reset and turn off all outputs.
-     * @param chipAddress [64-125] The I2C address of your PCA9685; eg: 64
-     * @param freq [40-1000] Frequency (40-1000) in hertz to run the clock cycle at; eg: 50
+     * A PCA9685 inicializálása. Teljes alapelyzetbe állítja és minden kimemetet kikapcsol.
+     * @param chipAddress [64-125] A PCA9685 I2C címe, pl.: 64
+     * @param freq [40-1000] Frekvencia (40Hz-1000Hz); pl.: 100
      */
     //% block advanced=true
-    export function init(chipAddress: number = 0x40, newFreq: number = 50) {
+    export function init(chipAddress: number = 0x40, newFreq: number = 100) {
         debug(`Init chip at address ${chipAddress} to ${newFreq}Hz`)
         const buf = pins.createBuffer(2)
         const freq = (newFreq > 1000 ? 1000 : (newFreq < 40 ? 40 : newFreq))
@@ -204,8 +204,8 @@ namespace PLCbit_Valve {
     }
 
     /**
-     * Used to reset the chip, will cause the chip to do a full reset and turn off all outputs.
-     * @param chipAddress [64-125] The I2C address of your PCA9685; eg: 64
+     * A PCA9685 reszetelése. Teljes alapelyzetbe állítja és minden kimemetet kikapcsol.
+     * @param chipAddress [64-125] A PCA9685 I2C címe, pl.: 64
      */
     //% block
     export function reset(chipAddress: number = 0x40): void {
@@ -213,8 +213,8 @@ namespace PLCbit_Valve {
     }
 
     /**
-     * Used to reset the chip, will cause the chip to do a full reset and turn off all outputs.
-     * @param hexAddress The hex address to convert to decimal; eg: 0x40
+     * Segít a hexadecimális szá, decimálissá konvertálásában.
+     * @param hexAddress A Hexadecimális szám; pl.: 0x40
      */
     //% block
     export function chipAddress(hexAddress: string): number {
