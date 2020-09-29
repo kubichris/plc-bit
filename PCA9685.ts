@@ -163,7 +163,7 @@ namespace PLCbit_Valve {
     /**
      * Kitöltési tényező megadása (0-100) egy szelephez
      * @param chipAddress [64-125] A PCA9685 I2C címe, pl.: 64
-     * @param ledNum A kimenet sorszáma (1-16) 
+     * @param valveNum A kimenet sorszáma (1-16) 
      * @param dutyCycle A kitöltéi tényező (0-100)
      */
     //% block
@@ -174,11 +174,23 @@ namespace PLCbit_Valve {
         dutyCycle = Math.max(0, Math.min(100, dutyCycle))
         const pwm = (dutyCycle * (chipResolution - 1)) / 100
         debug(`setLedDutyCycle(${valveNum}, ${dutyCycle}, ${chipAddress})`)
-        return valveSetPinPulseRange(valveNum - 1, 0, pwm, chipAddress)
+        return valveSetPinPulseRange(chipAddress, valveNum - 1, 0, pwm)
     }
 
   
-  
+   /**
+     * Egy szelep ki vagy bekapcsolása
+     * @param chipAddress [64-125] A PCA9685 I2C címe, pl.: 64
+     * @param valveNum A kimenet sorszáma (1-16) 
+     * @param value A szelep állapota
+     */
+    //% block
+    //% chipAddress.defl=0x40
+    //% block="Szelep a $chipAddress címen $valveNum. szelep legyen $value"
+    export function valveSetState(chipAddress: number = 0x40, valveNum: ValveNum = 1, value : boolean): void {
+        return valveSetDutyCycle(chipAddress, valveNum, (value ? 50 : 0) )
+    }
+ 
   
     /**
      * A PCA9685 inicializálása. Teljes alapelyzetbe állítja és minden kimemetet kikapcsol.
