@@ -145,6 +145,7 @@ let intPin = DigitalPin.P16
      */
     //% blockId="initPlcBit"
     //% block="A %adress PLC:BIT inicializálása"
+    //% adress.defl=ADDRESS.A20
     //% weight=80
     //% group="Induláshoz"
     export function initPlcBit(adress: ADDRESS): void {

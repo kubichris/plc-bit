@@ -161,8 +161,8 @@ namespace PLCbit_Valve {
     /**
      * Kitöltési tényező megadása (0-100) egy szelephez
      * @param chipAddress [64-125] A PCA9685 I2C címe, pl.: 64
-     * @param A kimenet sorszáma (1-16) 
-     * @param A kitöltéi tényező (0-100)
+     * @param ledNum A kimenet sorszáma (1-16) 
+     * @param dutyCycle A kitöltéi tényező (0-100)
      */
     //% block
     export function setLedDutyCycle(ledNum: LEDNum = 1, dutyCycle: number = 50, chipAddress: number = 0x40): void {
@@ -182,6 +182,8 @@ namespace PLCbit_Valve {
      * @param freq [40-1000] Frekvencia (40Hz-1000Hz); pl.: 100
      */
     //% block advanced=true
+    //% chipAddress.defl=0x40
+    //% newFreq.defl=100
     export function init(chipAddress: number = 0x40, newFreq: number = 100) {
         debug(`Init chip at address ${chipAddress} to ${newFreq}Hz`)
         const buf = pins.createBuffer(2)
