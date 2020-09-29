@@ -42,12 +42,16 @@ namespace PLCbit_OLED {
     //let font: Array<Array<number>>
     let loadStarted: boolean;
     let loadPercent: number;
+    
     function command(cmd: number) {
         let buf = pins.createBuffer(2)
         buf[0] = 0x00
         buf[1] = cmd
         pins.i2cWriteBuffer(chipAdress, buf, false)
     }
+    /**
+     * Törli az OLED tartalmát
+     **/ 
     //% block="OLED törlése"
     //% weight=90
     export function clear() {
@@ -130,6 +134,7 @@ namespace PLCbit_OLED {
         }
         loadPercent = num
     }
+
 
     //% block="OLED Állapotjelző $percent % értékkel"
     //% percent.min=0 percent.max=100
