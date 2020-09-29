@@ -135,7 +135,8 @@ namespace PLCbit_Valve {
      * @param offStep A kikapcsolási impulzus hossza (0-4095)
      */
     //% block advanced=true
-    export function setPinPulseRange(pinNumber: PinNum = 0, onStep: number = 0, offStep: number = 2048, chipAddress: number = 0x40): void {
+    //% chipAddress.defl=0x40
+    export function setPinPulseRange(chipAddress: number = 0x40, pinNumber: PinNum = 0, onStep: number = 0, offStep: number = 2048): void {
         pinNumber = Math.max(0, Math.min(15, pinNumber))
         const buffer = pins.createBuffer(2)
         const pinOffset = PinRegDistance * pinNumber
@@ -165,7 +166,8 @@ namespace PLCbit_Valve {
      * @param dutyCycle A kitöltéi tényező (0-100)
      */
     //% block
-    export function setLedDutyCycle(ledNum: LEDNum = 1, dutyCycle: number = 50, chipAddress: number = 0x40): void {
+    //% chipAddress.defl=0x40
+    export function setLedDutyCycle(chipAddress: number = 0x40, ledNum: LEDNum = 1, dutyCycle: number = 50): void {
         ledNum = Math.max(1, Math.min(16, ledNum))
         dutyCycle = Math.max(0, Math.min(100, dutyCycle))
         const pwm = (dutyCycle * (chipResolution - 1)) / 100
@@ -210,6 +212,7 @@ namespace PLCbit_Valve {
      * @param chipAddress [64-125] A PCA9685 I2C címe, pl.: 64
      */
     //% block
+    //% chipAddress.defl=0x40
     export function reset(chipAddress: number = 0x40): void {
         return init(chipAddress, getChipConfig(chipAddress).freq);
     }
