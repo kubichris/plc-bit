@@ -56,23 +56,23 @@ namespace PLCbit_Valve {
     }
 
   
-    export enum LEDNum {
-        LED1 = 1,
-        LED2 = 2,
-        LED3 = 3,
-        LED4 = 4,
-        LED5 = 5,
-        LED6 = 6,
-        LED7 = 7,
-        LED8 = 8,
-        LED9 = 9,
-        LED10 = 10,
-        LED11 = 11,
-        LED12 = 12,
-        LED13 = 13,
-        LED14 = 14,
-        LED15 = 15,
-        LED16 = 16,
+    export enum ValveNum {
+        Valve1 = 1,
+        Valve2 = 2,
+        Valve3 = 3,
+        Valve4 = 4,
+        Valve5 = 5,
+        Valve6 = 6,
+        Valve7 = 7,
+        Valve8 = 8,
+        Valve9 = 9,
+        Valve10 = 10,
+        Valve11 = 11,
+        Valve12 = 12,
+        Valve13 = 13,
+        Valve14 = 14,
+        Valve15 = 15,
+        Valve16 = 16,
     }
 
   
@@ -82,7 +82,7 @@ namespace PLCbit_Valve {
         constructor(address: number = 0x40, freq: number = 50) {
             this.address = address
             this.freq = freq
-            init(address, freq)
+            valveInit(address, freq)
         }
     }
 
@@ -136,7 +136,8 @@ namespace PLCbit_Valve {
      */
     //% block advanced=true
     //% chipAddress.defl=0x40
-    export function setPinPulseRange(chipAddress: number = 0x40, pinNumber: PinNum = 0, onStep: number = 0, offStep: number = 2048): void {
+    
+    export function valveSetPinPulseRange(chipAddress: number = 0x40, pinNumber: PinNum = 0, onStep: number = 0, offStep: number = 2048): void {
         pinNumber = Math.max(0, Math.min(15, pinNumber))
         const buffer = pins.createBuffer(2)
         const pinOffset = PinRegDistance * pinNumber
@@ -167,12 +168,12 @@ namespace PLCbit_Valve {
      */
     //% block
     //% chipAddress.defl=0x40
-    export function setLedDutyCycle(chipAddress: number = 0x40, ledNum: LEDNum = 1, dutyCycle: number = 50): void {
-        ledNum = Math.max(1, Math.min(16, ledNum))
+    export function valveSetDutyCycle(chipAddress: number = 0x40, valveNum: ValveNum = 1, dutyCycle: number = 50): void {
+        valveNum = Math.max(1, Math.min(16, valveNum))
         dutyCycle = Math.max(0, Math.min(100, dutyCycle))
         const pwm = (dutyCycle * (chipResolution - 1)) / 100
-        debug(`setLedDutyCycle(${ledNum}, ${dutyCycle}, ${chipAddress})`)
-        return setPinPulseRange(ledNum - 1, 0, pwm, chipAddress)
+        debug(`setLedDutyCycle(${valveNum}, ${dutyCycle}, ${chipAddress})`)
+        return valveSetPinPulseRange(valveNum - 1, 0, pwm, chipAddress)
     }
 
   
@@ -186,7 +187,7 @@ namespace PLCbit_Valve {
     //% block advanced=true
     //% chipAddress.defl=0x40
     //% newFreq.defl=100
-    export function init(chipAddress: number = 0x40, newFreq: number = 100) {
+    export function valveInit(chipAddress: number = 0x40, newFreq: number = 100) {
         debug(`Init chip at address ${chipAddress} to ${newFreq}Hz`)
         const buf = pins.createBuffer(2)
         const freq = (newFreq > 1000 ? 1000 : (newFreq < 40 ? 40 : newFreq))
@@ -213,8 +214,8 @@ namespace PLCbit_Valve {
      */
     //% block
     //% chipAddress.defl=0x40
-    export function reset(chipAddress: number = 0x40): void {
-        return init(chipAddress, getChipConfig(chipAddress).freq);
+    export function valveReset(chipAddress: number = 0x40): void {
+        return valveInit(chipAddress, getChipConfig(chipAddress).freq);
     }
 
     /**
