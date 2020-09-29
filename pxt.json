@@ -12,7 +12,8 @@
         "OLED.ts",
         "1602_LCD.ts",
         "_locales/hu/pxt-PLCBIT-strings.json",
-        "_locales/hu/pxt-PLCBIT-jsdoc-strings.json"
+        "_locales/hu/pxt-PLCBIT-jsdoc-strings.json",
+        "PCA9685.ts"
     ],
     "testFiles": [
         "test.ts"
