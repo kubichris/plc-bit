@@ -136,7 +136,7 @@ namespace PLCbit_Valve {
      */
     //% block advanced=true
     //% chipAddress.defl=0x40
-    
+    //% block="Szelep pulzustartományok a $chipAddress címen láb:$pinNumber bekpcsolva $onStep kikapcsolva $offStep arányban"
     export function valveSetPinPulseRange(chipAddress: number = 0x40, pinNumber: PinNum = 0, onStep: number = 0, offStep: number = 2048): void {
         pinNumber = Math.max(0, Math.min(15, pinNumber))
         const buffer = pins.createBuffer(2)
@@ -168,6 +168,7 @@ namespace PLCbit_Valve {
      */
     //% block
     //% chipAddress.defl=0x40
+    //% block="Szelep kitöltési tényező a $chipAddress címen $valveNum. szelep $dutyCycle%"
     export function valveSetDutyCycle(chipAddress: number = 0x40, valveNum: ValveNum = 1, dutyCycle: number = 50): void {
         valveNum = Math.max(1, Math.min(16, valveNum))
         dutyCycle = Math.max(0, Math.min(100, dutyCycle))
@@ -187,6 +188,7 @@ namespace PLCbit_Valve {
     //% block advanced=true
     //% chipAddress.defl=0x40
     //% newFreq.defl=100
+    //% block="Szelep inicializálása a $chipAddress címen $newFreq Hz frekvencián"
     export function valveInit(chipAddress: number = 0x40, newFreq: number = 100) {
         debug(`Init chip at address ${chipAddress} to ${newFreq}Hz`)
         const buf = pins.createBuffer(2)
@@ -214,6 +216,7 @@ namespace PLCbit_Valve {
      */
     //% block
     //% chipAddress.defl=0x40
+    //% block="Szelep újraindítása a $chipAddress címen"
     export function valveReset(chipAddress: number = 0x40): void {
         return valveInit(chipAddress, getChipConfig(chipAddress).freq);
     }
@@ -223,6 +226,8 @@ namespace PLCbit_Valve {
      * @param hexAddress A Hexadecimális szám; pl.: 0x40
      */
     //% block
+    //% block="$hexAddress Hexa decimális értéke"
+
     export function chipAddress(hexAddress: string): number {
         hexAddress = stripHexPrefix(hexAddress)
         let dec = 0
