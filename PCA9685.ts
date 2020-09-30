@@ -76,6 +76,8 @@ namespace PLCbit_Valve {
     }
 
   
+    let currentValues = 0x0000;
+
     export class ChipConfig {
         address: number;
         freq: number;
@@ -158,6 +160,17 @@ namespace PLCbit_Valve {
 
         // High byte of offStep
         write(chipAddress, pinOffset + channel0OffStepHighByte, (offStep >> 8) & 0x0F)
+
+        if (onStep > 0 && offStep > 0) {
+            let tempMask = 1 << pinNumber
+            tempMask = tempMask ^ 0B11111111
+            currentValues = currentValues & tempMask
+        }
+        else
+        {
+            let tempMask = 1 << pinNumber
+            currentValues = currentValues | tempMask
+        }
     }
 
     /**
@@ -191,7 +204,19 @@ namespace PLCbit_Valve {
         return valveSetDutyCycle(chipAddress, valveNum, (value ? 50 : 0) )
     }
  
-  
+     /**
+     * Egy szelep állapota
+     * @param chipAddress [64-125] A PCA9685 I2C címe, pl.: 64
+     * @param valveNum A kimenet sorszáma (1-16) 
+     */
+    //% block
+    //% chipAddress.defl=0x40
+    //% block="Szelep a $chipAddress címen $valveNum. szelep állapota"
+    export function valveGetState(chipAddress: number = 0x40, valveNum: ValveNum = 1): boolean {
+            let tempMask = 1 << (valveNum-1)
+            return (currentValues & tempMask) > 0
+    }
+
     /**
      * A PCA9685 inicializálása. Teljes alapelyzetbe állítja és minden kimemetet kikapcsol.
      * @param chipAddress [64-125] A PCA9685 I2C címe, pl.: 64
