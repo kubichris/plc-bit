@@ -203,7 +203,7 @@ namespace PLCbit_Valve {
     //% chipAddress.defl=0x40
     //% block="Szelep a $chipAddress címen $valveNum. szelep legyen $value"
     export function valveSetState(chipAddress: number = 0x40, valveNum: ValveNum = 1, value : boolean): void {
-        return valveSetDutyCycle(chipAddress, valveNum, (value ? 96 : 0) )
+        return valveSetDutyCycle(chipAddress, valveNum, (value ? 98 : 0) )
     }
  
      /**
