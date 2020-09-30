@@ -76,7 +76,7 @@ namespace PLCbit_Valve {
     }
 
   
-    let currentValues = 0x0000;
+    let currentValues : number = 0x0000;
 
     export class ChipConfig {
         address: number;
