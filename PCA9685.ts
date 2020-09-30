@@ -76,7 +76,7 @@ namespace PLCbit_Valve {
     }
 
   
-    let currentValues : number = 0x0000
+  //  let currentValues : number = 0x0000
 
     export class ChipConfig {
         address: number;
@@ -247,7 +247,7 @@ namespace PLCbit_Valve {
         control.waitMicros(1000)
         write(chipAddress, modeRegister1, restart)
 
-        currentValues = 0;
+       // currentValues = 0;
     }
 
     /**
