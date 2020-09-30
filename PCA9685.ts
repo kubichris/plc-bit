@@ -161,9 +161,9 @@ namespace PLCbit_Valve {
         // High byte of offStep
         write(chipAddress, pinOffset + channel0OffStepHighByte, (offStep >> 8) & 0x0F)
 
-        if (onStep > 0 && offStep > 0) {
+        if (onStep == 0 && offStep == 0) {
             let tempMask = 1 << pinNumber
-            tempMask = tempMask ^ 0B11111111
+            tempMask = tempMask ^ 0xFFFF
             currentValues = currentValues & tempMask
         }
         else
@@ -245,6 +245,8 @@ namespace PLCbit_Valve {
 
         control.waitMicros(1000)
         write(chipAddress, modeRegister1, restart)
+
+        currentValues = 0;
     }
 
     /**
