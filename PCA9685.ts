@@ -160,7 +160,7 @@ namespace PLCbit_Valve {
 
         // High byte of offStep
         write(chipAddress, pinOffset + channel0OffStepHighByte, (offStep >> 8) & 0x0F)
-
+/*
         if (onStep == 0 && offStep == 0) {
             let tempMask = 1 << pinNumber
             tempMask = tempMask ^ 0xFFFF
@@ -171,6 +171,7 @@ namespace PLCbit_Valve {
             let tempMask = 1 << pinNumber
             currentValues = currentValues | tempMask
         }
+        */
     }
 
     /**
