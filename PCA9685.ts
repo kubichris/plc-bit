@@ -57,22 +57,23 @@ namespace PLCbit_Valve {
 
   
     export enum ValveNum {
-        Valve1 = 1,
-        Valve2 = 2,
-        Valve3 = 3,
-        Valve4 = 4,
-        Valve5 = 5,
-        Valve6 = 6,
-        Valve7 = 7,
-        Valve8 = 8,
-        Valve9 = 9,
-        Valve10 = 10,
-        Valve11 = 11,
-        Valve12 = 12,
-        Valve13 = 13,
-        Valve14 = 14,
-        Valve15 = 15,
-        Valve16 = 16,
+        V1_12 = 1,
+        V2_12 = 2,
+        V3_12 = 3,
+        V4_12 = 4,
+        V5_12 = 5,
+        V6_12 = 6,
+        V7_12 = 7,
+        V8_12 = 8,
+
+        V8_14 = 9,
+        V7_14 = 10,
+        V6_14 = 11,
+        V5_14 = 12,
+        V4_14 = 13,
+        V3_14 = 14,
+        V2_14 = 15,
+        V1_14 = 16,
     }
 
   
