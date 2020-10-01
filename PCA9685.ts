@@ -76,6 +76,10 @@ namespace PLCbit_Valve {
         V1_14 = 16,
     }
 
+    export enum ValveFunction {
+        F12 = 1,
+        F14 = 2
+    }
   
     let currentValues : number = 0x0000
 
@@ -128,15 +132,6 @@ namespace PLCbit_Valve {
 
     function calcFreqOffset(freq: number, offset: number) {
         return ((offset * 1000) / (1000 / freq) * chipResolution) / 10000
-    }
-
-    //% block advanced=true
-    //% chipAddress.defl=0x40
-    //% block="Szelep $vnum sorszám szerint"
-    export function valveByNumber(vnum : number) : ValveNum {
-      
-        let ret : ValveNum = vnum
-        return ret
     }
 
     /**
@@ -214,7 +209,47 @@ namespace PLCbit_Valve {
     export function valveSetState(chipAddress: number = 0x40, valveNum: ValveNum = 1, value : boolean): void {
         return valveSetDutyCycle(chipAddress, valveNum, (value ? 98 : 0) )
     }
- 
+
+   /**
+     * Egy szelep ki vagy bekapcsolása
+     * @param chipAddress [64-125] A PCA9685 I2C címe, pl.: 64
+     * @param valveNum A kimenet sorszáma (1-8) 
+     * @param valveFunc A szelep funkciója
+     * @param value A szelep állapota
+     */
+    //% block
+    //% chipAddress.defl=0x40
+    //% block="Szelep a $chipAddress címen $valveNum. számú szelep $vavleFunc funkcióval legyen $value"
+    export function valveSetStateByNumber(chipAddress: number = 0x40, valveNum: number = 1,  valveFunc : ValveFunction = 1, value : boolean): void {
+        let valve : number = (16 - Math.max(1, Math.min(8, valveNum)))
+
+        if (valveFunc == ValveFunction.F14) {
+            valve = (16-valve)+1;
+        }
+
+        return valveSetState(chipAddress, valve, value)
+    }
+
+   /**
+     * Egy szelep állapotának lekérdezése
+     * @param chipAddress [64-125] A PCA9685 I2C címe, pl.: 64
+     * @param valveNum A kimenet sorszáma (1-8) 
+     * @param valveFunc A szelep funkciója
+     * @return A szelep állapota
+     */
+    //% block
+    //% chipAddress.defl=0x40
+    //% block="Szelep a $chipAddress címen $valveNum. számú szelep $vavleFunc állapota"
+    export function valveGetStateByNumber(chipAddress: number = 0x40, valveNum: number = 1,  valveFunc : ValveFunction = 1): boolean {
+        let valve : number = (16 - Math.max(1, Math.min(8, valveNum)))
+
+        if (valveFunc == ValveFunction.F14) {
+            valve = (16-valve)+1;
+        }
+        return valveGetState(chipAddress, valve)
+    }
+
+
      /**
      * Egy szelep állapota
      * @param chipAddress [64-125] A PCA9685 I2C címe, pl.: 64
