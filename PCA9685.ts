@@ -83,18 +83,8 @@ namespace PLCbit_Valve {
   
     let currentValues : number = 0x0000
 
-    export class ChipConfig {
-        address: number;
-        freq: number;
-        constructor(address: number = 0x40, freq: number = 50) {
-            this.address = address
-            this.freq = freq
-            valveInit(address, freq)
-        }
-    }
 
-    export const chips: ChipConfig[] = []
-
+ 
     function calcFreqPrescaler(freq: number): number {
         return (25000000 / (freq * chipResolution)) - 1;
     }
@@ -116,20 +106,6 @@ namespace PLCbit_Valve {
         pins.i2cWriteBuffer(chipAddress, buffer, false)
     }
 
-    export function getChipConfig(address: number): ChipConfig {
-        for (let i = 0; i < chips.length; i++) {
-            if (chips[i].address === address) {
-                debug(`Returning chip ${i}`)
-                return chips[i]
-            }
-        }
-        debug(`Creating new chip for address ${address}`)
-        const chip = new ChipConfig(address)
-        const index = chips.length
-        chips.push(chip)
-        return chips[index]
-    }
-
     function calcFreqOffset(freq: number, offset: number) {
         return ((offset * 1000) / (1000 / freq) * chipResolution) / 10000
     }
@@ -141,10 +117,12 @@ namespace PLCbit_Valve {
      * @param onStep A bekapcsolásai impulzus hossza (0-4095)
      * @param offStep A kikapcsolási impulzus hossza (0-4095)
      */
+    /*
     //% block advanced=true
     //% chipAddress.defl=0x40
     //% block="Szelep pulzustartományok a $chipAddress címen láb:$pinNumber bekpcsolva $onStep kikapcsolva $offStep arányban"
-    export function valveSetPinPulseRange(chipAddress: number = 0x40, pinNumber: PinNum = 0, onStep: number = 0, offStep: number = 2048): void {
+    */
+    function valveSetPinPulseRange(chipAddress: number = 0x40, pinNumber: PinNum = 0, onStep: number = 0, offStep: number = 2048): void {
         pinNumber = Math.max(0, Math.min(15, pinNumber))
         const buffer = pins.createBuffer(2)
         const pinOffset = PinRegDistance * pinNumber
@@ -185,10 +163,12 @@ namespace PLCbit_Valve {
      * @param valveNum A kimenet sorszáma (1-16) 
      * @param dutyCycle A kitöltéi tényező (0-100)
      */
+    /*
     //% block
     //% chipAddress.defl=0x40
     //% block="Szelep kitöltési tényező a $chipAddress címen $valveNum. szelep $dutyCycle%"
-    export function valveSetDutyCycle(chipAddress: number = 0x40, valveNum: ValveNum = 1, dutyCycle: number = 50): void {
+    */
+    function valveSetDutyCycle(chipAddress: number = 0x40, valveNum: ValveNum = 1, dutyCycle: number = 50): void {
         valveNum = Math.max(1, Math.min(16, valveNum))
         dutyCycle = Math.max(0, Math.min(100, dutyCycle))
         const pwm = (dutyCycle * (chipResolution - 1)) / 100
@@ -273,7 +253,7 @@ namespace PLCbit_Valve {
     //% block advanced=true
     //% chipAddress.defl=0x40
     //% newFreq.defl=100
-    //% block="Szelep inicializálása a $chipAddress címen $newFreq Hz frekvencián"
+    //% block="Szeleptömb inicializálása a $chipAddress címen $newFreq Hz frekvencián"
     export function valveInit(chipAddress: number = 0x40, newFreq: number = 100) {
         debug(`Init chip at address ${chipAddress} to ${newFreq}Hz`)
         const buf = pins.createBuffer(2)
@@ -303,9 +283,9 @@ namespace PLCbit_Valve {
      */
     //% block
     //% chipAddress.defl=0x40
-    //% block="Szelep újraindítása a $chipAddress címen"
+    //% block="Szeleptömb inicializálása a $chipAddress címen"
     export function valveReset(chipAddress: number = 0x40): void {
-        return valveInit(chipAddress, getChipConfig(chipAddress).freq);
+        return valveInit(chipAddress, 100);
     }
 
     /**
