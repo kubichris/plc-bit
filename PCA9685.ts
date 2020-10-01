@@ -130,6 +130,15 @@ namespace PLCbit_Valve {
         return ((offset * 1000) / (1000 / freq) * chipResolution) / 10000
     }
 
+    //% block advanced=true
+    //% chipAddress.defl=0x40
+    //% block="Szelep $vnum sorszám szerint"
+    export function valveByNumber(vnum : number) : ValveNum {
+      
+        let ret : ValveNum = vnum
+        return ret
+    }
+
     /**
      * A pulzustartomány beállítására szolgál (0-4095) tartományban
      * @param chipAddress [64-125] A PCA9685 I2C címe, pl.: 64
