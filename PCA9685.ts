@@ -219,6 +219,7 @@ namespace PLCbit_Valve {
      */
     //% block
     //% chipAddress.defl=0x40
+    //% valveFunc.defl = 1
     //% block="Szelep a $chipAddress címen $valveNum.$valveFunc legyen $value"
     export function valveSetStateByNumber(chipAddress: number = 0x40, valveNum: number = 1,  valveFunc : ValveFunction = 1, value : boolean): void {
         let valve : number = (16 - Math.max(1, Math.min(8, valveNum)))
@@ -239,6 +240,7 @@ namespace PLCbit_Valve {
      */
     //% block
     //% chipAddress.defl=0x40
+    //% valveFunc.defl = 1
     //% block="Szelep a $chipAddress címen $valveNum.$valveFunc állapota"
     export function valveGetStateByNumber(chipAddress: number = 0x40, valveNum: number = 1,  valveFunc : ValveFunction = 1): boolean {
         let valve : number = (16 - Math.max(1, Math.min(8, valveNum)))
